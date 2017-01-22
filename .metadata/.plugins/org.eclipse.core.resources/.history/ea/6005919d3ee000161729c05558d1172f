@@ -1,0 +1,93 @@
+package sandySovereign;
+
+import java.util.EnumMap;
+import java.util.Map;
+
+/**
+ * Keeps track of all of the player's resources.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Stockpile {
+
+	// The building materials available to the player.
+	private int seaweed;
+	private int seashells;
+	private int sand;
+	private int driftwoodchips;
+	private int pebbles;
+	
+	// The status of the sand people.
+	private int population;
+	private int happiness;
+	private int food;
+	
+	// Special items.
+	private int sandDollars;
+	private int clamShells;
+	
+	// The enumerator for all of the resources.
+	public enum Resource {
+		SEAWEED, SEASHELLS, SAND, DRIFTWOODCHIPS, PEBBLES,
+		POPULATION, HAPPINESS, FOOD,
+		SANDDOLLARS, CLAMSHELLS
+	}
+	
+	/**
+	 * Returns an EnumMap with keys for all of the Resource enums and default values of 0.
+	 * @return the default Resource EnumMap.
+	 */
+	static public Map<Resource,Integer> getResourceMap() {
+		
+		// The EnumMap to be returned.
+		Map<Resource,Integer> resources = new EnumMap<Resource,Integer>(Resource.class);
+		
+		// Add each resource to the EnumMap with the default value, 0.
+		for (Resource r : Resource.values())
+			resources.put(r, 0);
+		
+		// Return the EnumMap
+		return resources;
+		
+	}
+	
+	
+	public int getResourceValue(Resource resource) {
+		
+		// The value to be returned.
+		int returnThis;
+		
+		switch (resource) {
+		
+		case CLAMSHELLS:
+			return clamShells;
+			break;
+		case DRIFTWOODCHIPS:
+			break;
+		case FOOD:
+			break;
+		case HAPPINESS:
+			break;
+		case PEBBLES:
+			break;
+		case POPULATION:
+			break;
+		case SAND:
+			break;
+		case SANDDOLLARS:
+			break;
+		case SEASHELLS:
+			break;
+		case SEAWEED:
+			break;
+			
+		
+		}
+		
+	}
+	
+	
+	
+	
+	
+}

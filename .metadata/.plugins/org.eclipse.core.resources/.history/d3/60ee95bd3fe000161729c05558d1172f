@@ -1,0 +1,153 @@
+package sandySovereign;
+
+import java.util.EnumMap;
+import java.util.Map;
+
+/**
+ * Keeps track of all of the player's resources.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Stockpile {
+
+	// The building materials available to the player.
+	private int seaweed;
+	private int seashells;
+	private int sand;
+	private int driftwoodChips;
+	private int pebbles;
+	
+	// The status of the sand people.
+	private int population;
+	private int happiness;
+	private int food;
+	
+	// Special items.
+	private int sandDollars;
+	private int clamShells;
+	
+	// The enumerator for all of the resources.
+	public enum Resource {
+		SEAWEED, SEASHELLS, SAND, DRIFTWOODCHIPS, PEBBLES,
+		POPULATION, HAPPINESS, FOOD,
+		SANDDOLLARS, CLAMSHELLS
+	}
+	
+	/**
+	 * Returns an EnumMap with keys for all of the Resource enums and default values of 0.
+	 * @return the default Resource EnumMap.
+	 */
+	static public Map<Resource,Integer> getResourceMap() {
+		
+		// The EnumMap to be returned.
+		Map<Resource,Integer> resources = new EnumMap<Resource,Integer>(Resource.class);
+		
+		// Add each resource to the EnumMap with the default value, 0.
+		for (Resource r : Resource.values())
+			resources.put(r, 0);
+		
+		// Return the EnumMap
+		return resources;
+		
+	}
+	
+	/**
+	 * Gets a resourceValue based on the enumerator value passed to the function.
+	 * @param resource specifies the resource to retrieve the value from.
+	 * @return the retrieved value for the specified resource.
+	 */
+	public int getResourceValue(Resource resource) {
+		
+		// The value to be returned.
+		int returnThis = 0;
+		
+		// Use the enumerator value to determine what value needs to be passed back.
+		switch (resource) {
+		
+		case CLAMSHELLS:
+			returnThis = clamShells;
+			break;
+		case DRIFTWOODCHIPS:
+			returnThis = driftwoodChips;
+			break;
+		case FOOD:
+			returnThis = food;
+			break;
+		case HAPPINESS:
+			returnThis = happiness;
+			break;
+		case PEBBLES:
+			returnThis = pebbles;
+			break;
+		case POPULATION:
+			returnThis = population;
+			break;
+		case SAND:
+			returnThis = sand;
+			break;
+		case SANDDOLLARS:
+			returnThis = sandDollars;
+			break;
+		case SEASHELLS:
+			returnThis = seashells;
+			break;
+		case SEAWEED:
+			returnThis = seaweed;
+			break;
+			
+		}
+		
+		// Return the specified value.
+		return returnThis;
+		
+	}
+	
+public void setResourceValue(Resource resource, int value) {
+		
+		// The value to be returned.
+		int returnThis = 0;
+		
+		// Use the enumerator value to determine what value needs to be passed back.
+		switch (resource) {
+		
+		case CLAMSHELLS:
+			returnThis = clamShells;
+			break;
+		case DRIFTWOODCHIPS:
+			returnThis = driftwoodChips;
+			break;
+		case FOOD:
+			returnThis = food;
+			break;
+		case HAPPINESS:
+			returnThis = happiness;
+			break;
+		case PEBBLES:
+			returnThis = pebbles;
+			break;
+		case POPULATION:
+			returnThis = population;
+			break;
+		case SAND:
+			returnThis = sand;
+			break;
+		case SANDDOLLARS:
+			returnThis = sandDollars;
+			break;
+		case SEASHELLS:
+			returnThis = seashells;
+			break;
+		case SEAWEED:
+			returnThis = seaweed;
+			break;
+			
+		}
+		
+		// Return the specified value.
+		return returnThis;
+		
+	}
+	
+	
+	
+}

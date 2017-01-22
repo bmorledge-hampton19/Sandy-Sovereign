@@ -1,0 +1,12 @@
+package sandySovereign;
+
+/**
+ * A class to determine whether a requirement for an event has been fulfilled
+ * @author Benjamin Morledge-Hampton
+ * @version 
+ */
+public class Conditional {
+
+	
+	
+}

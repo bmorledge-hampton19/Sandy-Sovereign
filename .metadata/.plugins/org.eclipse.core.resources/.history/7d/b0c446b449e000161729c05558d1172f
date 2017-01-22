@@ -1,0 +1,89 @@
+package sandySovereign;
+
+import java.util.Map;
+
+/**
+ * A class to handle a possible result from an event.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Result {
+
+	// EnumMaps which keep track of how to alter stockpile values on either success or failure of the choice.
+	private Map<Stockpile.Resource,Integer> success;
+	private Map<Stockpile.Resource,Integer> failure;
+	
+	// The text to be displayed on either success of failure.
+	private String successMessage;
+	private String failureMessage;
+	
+	/**
+	 * Constructor which initializes the Maps and messages.
+	 * @param successMessage specifies the success message to be set.
+	 * @param failureMessage specifies the failure message to be set.
+	 */
+	Result(String successMessage, String failureMessage) {
+		
+		// Initialize messages with given values.
+		this.successMessage = successMessage;
+		this.failureMessage = failureMessage;
+		
+		// Initialize Maps to default values.
+		success = Stockpile.getResourceMap();
+		failure = Stockpile.getResourceMap();
+	}
+	
+	/**
+	 * Determine the outcome of the choice and alter the stockpile accordingly.
+	 * @param succeeded specifies whether or not the choice succeeded.
+	 * @param s specifies the stockpile to be altered.
+	 * @return the message describing the result.
+	 */
+	public String outcome(boolean succeeded, Stockpile s) {
+		
+		// Run through every resource value.
+		for (Stockpile.Resource r : Stockpile.Resource.values()) {
+		
+			// The message to be returned.
+			String message;
+			
+			// Initialize the message with the appropriate stored message.
+			if (succeeded) message = successMessage;
+			else message = failureMessage;
+			
+			// Determine whether the success of failure map will be used.
+			if (succeeded) {
+				
+				// Make sure the current resource value has been set.
+				if (success.get(r) != null) {
+					// Make the change.
+					s.alterResourceValue(r, success.get(r));
+				}
+				
+			}
+			else {
+				
+				// Make sure the current resource value has been set.
+				if (failure.get(r) != null) {
+					// Make the change.
+					s.alterResourceValue(r, failure.get(r));
+				}
+				
+			}
+	
+				
+		}
+		
+	}
+	
+	private String addChangeToMessage(Stockpile.Resource r, int value) {
+		
+		// The message should be different depending on whether or not the value is positive.
+		if (value < 0) {
+			
+		}
+		
+	}
+	
+	
+}

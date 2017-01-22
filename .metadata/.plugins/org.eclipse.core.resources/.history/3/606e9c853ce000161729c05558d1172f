@@ -1,0 +1,13 @@
+package sandySovereign;
+
+/**
+ * A class to determine whether a requirement for an event has been fulfilled
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Conditional {
+
+	// A hash map that keeps track of the requirements for each resource in the stockpile.
+	Map 
+	
+}

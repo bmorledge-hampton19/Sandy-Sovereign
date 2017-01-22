@@ -1,0 +1,38 @@
+package sandySovereign;
+
+import java.util.Map;
+
+/**
+ * A class to handle a possible result from an event.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Result {
+
+	// EnumMaps which keep track of how to alter stockpile values on either success or failure of the choice.
+	private Map<Stockpile.Resource,Integer> success;
+	private Map<Stockpile.Resource,Integer> failure;
+	
+	public void outcome(boolean succeeded, Stockpile s) {
+		
+		// Run through every value.
+		for (Stockpile.Resource r : Stockpile.Resource.values()) {
+			
+			if (succeeded) {
+				
+				
+				
+			}
+			else {
+				
+				
+				
+			}
+			
+		}
+		
+	}
+	
+	
+	
+}

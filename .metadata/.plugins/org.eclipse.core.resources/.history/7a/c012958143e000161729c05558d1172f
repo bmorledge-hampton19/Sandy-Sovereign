@@ -1,0 +1,11 @@
+package sandySovereign;
+/**
+ * A class to keep track of the many events and choices presented to the player.
+ * @author Benjamin
+ *
+ */
+public class Event {
+
+	
+	
+}

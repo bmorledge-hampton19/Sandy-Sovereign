@@ -1,0 +1,117 @@
+package sandySovereign;
+
+import java.util.EnumMap;
+import java.util.Map;
+
+/**
+ * Keeps track of all of the player's resources.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Stockpile {
+
+	// The building materials available to the player.
+	private int seaweed;
+	private int seashells;
+	private int sand;
+	private int driftwoodchips;
+	private int pebbles;
+	
+	// The status of the sand people.
+	private int population;
+	private int happiness;
+	private int food;
+	
+	// Special items.
+	private int sandDollars;
+	private int clamShells;
+	
+	// The enumerator for all of the resources.
+	public enum Resource {
+		SEAWEED, SEASHELLS, SAND, DRIFTWOODCHIPS, PEBBLES,
+		POPULATION, HAPPINESS, FOOD,
+		SANDDOLLARS, CLAMSHELLS
+	}
+	
+	
+	static public Map<Resource,Integer> getResourceMap() {
+		
+		// The EnumMap to be returned.
+		Map<Resource,Integer> resources = new EnumMap<Resource,Integer>(Resource.class);
+		
+		// Add each resource to the EnumMap with the default value, 0.
+		for (Resource r : Resource.values())
+			resources.put(r, 0);
+		
+		// Return the EnumMap
+		return resources;
+		
+	}
+	
+	// Basic getters and setters.
+	public int getSeaweed() {
+		return seaweed;
+	}
+	public void setSeaweed(int seaweed) {
+		this.seaweed = seaweed;
+	}
+	public int getSeashells() {
+		return seashells;
+	}
+	public void setSeashells(int seashells) {
+		this.seashells = seashells;
+	}
+	public int getSand() {
+		return sand;
+	}
+	public void setSand(int sand) {
+		this.sand = sand;
+	}
+	public int getDriftwoodchips() {
+		return driftwoodchips;
+	}
+	public void setDriftwoodchips(int driftwoodchips) {
+		this.driftwoodchips = driftwoodchips;
+	}
+	public int getPebbles() {
+		return pebbles;
+	}
+	public void setPebbles(int pebbles) {
+		this.pebbles = pebbles;
+	}
+	public int getPopulation() {
+		return population;
+	}
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+	public int getHappiness() {
+		return happiness;
+	}
+	public void setHappiness(int happiness) {
+		this.happiness = happiness;
+	}
+	public int getFood() {
+		return food;
+	}
+	public void setFood(int food) {
+		this.food = food;
+	}
+	public int getSandDollars() {
+		return sandDollars;
+	}
+	public void setSandDollars(int sandDollars) {
+		this.sandDollars = sandDollars;
+	}
+	public int getClamShells() {
+		return clamShells;
+	}
+	public void setClamShells(int clamShells) {
+		this.clamShells = clamShells;
+	}
+	
+	
+	
+	
+	
+}

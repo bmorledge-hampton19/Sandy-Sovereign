@@ -1,0 +1,8 @@
+/**
+ * A class to handle a possible result from an event
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Result {
+
+}

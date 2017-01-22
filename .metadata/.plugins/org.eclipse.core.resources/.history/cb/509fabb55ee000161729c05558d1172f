@@ -1,0 +1,70 @@
+package sandySovereign;
+
+import java.util.ArrayList;
+
+/**
+ * A class to keep track of the many events and choices presented to the player.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Event {
+
+	// An array of all of the possible outcomes to the event and their respective conditionals.
+	private Result[] results;
+	private Conditional[] conditionals;
+	
+	// An array of the text displayed for each option.
+	private String[] optionText;
+	
+	// The Description for the event.
+	private String description;
+	
+	// The number of options available to the user for the event.
+	private int numberOfOptions;
+	
+	/**
+	 * Creates an event with the specified number of options, description text, and option text.
+	 * @param numberOfOptions specifies the number of choices available to the user.
+	 * @param description specifies the explanation for the event.
+	 * @param optionText specifies the descriptions for the choices.
+	 */
+	Event(int numberOfOptions, String description, String[] optionText) {
+		
+		// Allocate space for arrays.
+		results = new Result[numberOfOptions];
+		conditionals = new Conditional[numberOfOptions];
+		this.optionText = new String[numberOfOptions];
+		
+		// Initialize all of the given values.
+		this.numberOfOptions = numberOfOptions;
+		this.description = description;
+		for (int i = 0; i < numberOfOptions; i++)
+			this.optionText[i] = optionText[i];
+		
+	}
+	
+	/**
+	 * Add a set of success alterations to the indicated result object.
+	 * @param optionNumber specifies which result to alter.
+	 * @param r specifies the list of resources to be altered.
+	 * @param values is a parallel array to "r" which specifies by how much to alter the resources.
+	 */
+	void addSuccess(int optionNumber, Stockpile.Resource[] r, int[] values) {
+		// Add to the indicated result's success occurrences for every instance in the given parallel arrays.
+		for (int i = 0; i < r.length; i++)
+			results[optionNumber].addToSuccess(r[i], values[i]);
+	}
+	
+	/**
+	 * Add a set of failure alterations to the indicated result object.
+	 * @param optionNumber specifies which result to alter.
+	 * @param r specifies the list of resources to be altered.
+	 * @param values is a parallel array to "r" which specifies by how much to alter the resources.
+	 */
+	void addSuccess(int optionNumber, Stockpile.Resource[] r, int[] values) {
+		// Add to the indicated result's success occurrences for every instance in the given parallel arrays.
+		for (int i = 0; i < r.length; i++)
+			results[optionNumber].addToSuccess(r[i], values[i]);
+	}
+	
+}
