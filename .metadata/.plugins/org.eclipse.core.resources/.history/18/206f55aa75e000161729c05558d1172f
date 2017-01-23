@@ -1,0 +1,150 @@
+package sandySovereign;
+
+import java.util.EnumMap;
+import java.util.Map;
+
+/**
+ * Keeps track of all of the player's resources.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Stockpile {
+
+	// An EnumMap to keep track of the values associated with each resource.
+	Map<Resource,Integer> resourceValuesMap;
+	
+	// An EnumMap to keep track of the maximum values for each resource.
+	Map<Resource,Integer> resourceMaxMap;
+	
+	// An EnumMap to keep track of the income per turn for each resource.
+	Map<Resource,Integer> resourceIncomeMap;
+	
+	/*
+	// The building materials available to the player.
+	private int seaweed;
+	private int seashells;
+	private int sand;
+	private int driftwoodChips;
+	private int pebbles;
+	
+	// The status of the sand people.
+	private int population;
+	private int happiness;
+	private int food;
+	
+	// Defenses against natural disasters.
+	private int walls;
+	private int moat;
+	private int palisades;
+	
+	// Special items.
+	private int sandDollars;
+	private int clamShells;
+	*/
+	
+	
+	Stockpile() {
+		
+		// Initialize the EnumMaps.
+		
+		resourceValuesMap = new EnumMap<Resource,Integer>(Resource.class);
+		for (Resource r : Resource.values())
+			resourceValuesMap.put(r, 0);
+		
+		resourceMaxMap = new EnumMap<Resource,Integer>(Resource.class);
+		// TODO set default max values.
+		
+		resourceIncomeMap = new EnumMap<Resource,Integer>(Resource.class);
+		// TODO set default income values.
+		
+	}
+	
+	// The enumerator for all of the resources.
+	public enum Resource {
+		
+		// The building materials available to the player.
+		SEAWEED("Seaweed"), SEASHELLS("Seashells"), SAND("Sand"), DRIFTWOODCHIPS("Driftwood Chips"), PEBBLES("Pebbles"),
+		
+		// The statistics for the population.
+		POPULATION("Population"), HAPPINESS("Happiness"), FOOD("Food"),
+		
+		// Defenses against natural disasters.
+		WALLS("Walls"), MOAT("Moat"), PALISADES("Palisades"),
+		
+		// Special items.
+		SANDDOLLARS("Sand Dollars"), CLAMSHELLS("Clam Shells");
+		
+		// Add some stuff to allow conversion to Strings.
+		private String resourceName;
+		private Resource(String resourceName) {
+			this.resourceName = resourceName;
+		}
+		public String toString() {return resourceName;}
+			
+	}
+	
+	
+	
+	/**
+	 * Returns an EnumMap with keys for all of the Resource enumerators and default values "null".
+	 * @return the default Resource EnumMap.
+	 */
+	static public Map<Resource,Integer> getResourceMap() {
+		
+		// The EnumMap to be returned.
+		Map<Resource,Integer> resources = new EnumMap<Resource,Integer>(Resource.class);
+		
+		// Add each resource to the EnumMap with the default value, "null".
+		for (Resource r : Resource.values())
+			resources.put(r, null);
+		
+		// Return the EnumMap
+		return resources;
+		
+	}
+	
+	/**
+	 * Gets a resourceValue based on the enumerator value passed to the function.
+	 * @param resource specifies the resource to retrieve the value from.
+	 * @return the retrieved value for the specified resource.
+	 */
+	public int getResourceValue(Resource resource) {return resourceValuesMap.get(resource);}
+	
+	/**
+	 * Add a given value to a resourceValue determined by the passed enumerator value.
+	 * @param resource specifies the resource to be altered.
+	 * @param alter specifies the amount to add to the resource value. (Can be negative.)
+	 */
+	public void alterResourceValue(Resource resource, int alter) {
+			
+		// Use the enumerator value to determine which resource needs to have its value set.
+		// Also adjust for invalid values.
+		resourceValuesMap.put(resource, resourceValuesMap.get(resource)+alter);
+		if (resourceValuesMap.get(resource) < 0) resourceValuesMap.put(resource, 0);
+		else if (resourceValuesMap.get(resource) > resourceMaxMap.get(resource))
+			resourceValuesMap.put(resource, resourceMaxMap.get(resource));
+		
+	}
+	
+	
+	/**
+	 * Gets a resourceMax based on the enumerator value passed to the function.
+	 * @param resource specifies the resource to retrieve the maximum value from.
+	 * @return the retrieved maximum value for the specified resource.
+	 */
+	public int getResourceMax(Resource resource) {return resourceMaxMap.get(resource);}
+	
+	/**
+	 * Add a given value to a resourceMax determined by the passed enumerator value.
+	 * @param resource specifies the resource to be altered.
+	 * @param alter specifies the amount to add to the resource maximum value.
+	 */
+	public void alterResourceValue(Resource resource, int alter) {
+			
+		// Use the enumerator value to determine which resource needs to have its value set.
+		// Also adjust for invalid values.
+		resourceValuesMap.put(resource, resourceValuesMap.get(resource)+alter);
+		
+	}
+	
+}

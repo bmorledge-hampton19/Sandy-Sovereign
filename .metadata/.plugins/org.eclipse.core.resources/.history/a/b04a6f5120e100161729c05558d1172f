@@ -1,0 +1,95 @@
+package sandySovereign;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class EventManager {
+	
+	// Random events that are given to the player throughout the game.
+	ArrayList<Event> randomEvents;
+	
+	// The disasters that befall the player.
+	ArrayList<Event> disaster;
+	
+	// The fixed construction event that allows the player to reinforce defenses.
+	Event construction;
+	
+	// The fixed sand castle event that gives the player the option to increase the level of their sand castle.
+	Event sandCastleBuilder;
+	
+	/**
+	 * Initialize the events from a text file.
+	 * @param fileName specifies the name of the text file to be read from.
+	 */
+	EventManager(String fileName) {
+		
+		// Initialize the ArrayLists.
+		randomEvents = new ArrayList<Event>();
+		disaster = new ArrayList<Event>();
+		
+		// Load in the events.
+		loadEvents(fileName);
+	
+	}
+	
+	/**
+	 * Load in the details for the events.
+	 * @param fileName specifies the name of the text file to load in from.
+	 */
+	private void loadEvents(String fileName) {
+		
+		// TODO Parse text to load in events.
+		
+	}
+	
+	/**
+	 * Get a random event scaled based on the sand castle's level.
+	 * @param sandCastleLevel specifies the sand castle's level to scale based on.
+	 * @return the scaled random event.
+	 */
+	public Event retrieveRandomEvent(int sandCastleLevel) {
+		
+		// Get a random number generator.
+		Random RNG = new Random();
+		
+		// Return a random event scaled based on the sand castle's level.
+		return randomEvents.get(RNG.nextInt(randomEvents.size())).Clone((double)sandCastleLevel*1.25);
+		
+	}
+	
+	
+	public Event retrieveDisaster(Stockpile s, int turnNumber) {
+		
+		// Get a random number generator and a random number.
+		Random RNG = new Random();
+		int disasterChoice = RNG.nextInt(3);
+		
+		// Calculate the people's effectiveness at repelling a disaster.
+		int peopleEffectiveness = (int)(s.getResourceValue(Stockpile.Resource.POPULATION)*.5 *
+				(double)s.getResourceValue(Stockpile.Resource.HAPPINESS)/100.0);
+		
+		// Based on the random number, set up a disaster!
+		
+		// High tide!
+		if (disasterChoice == 0) {
+			
+			// Set up the two options, sending people out to bail out the moat or having them stay inside the walls.
+			disaster.get(0).addSuccess(0, Stockpile.Resource.MOAT, 
+					(int)(50*(1+turnNumber*0.01)-);
+			disaster.get(0).addSuccess(0, Stockpile.Resource.POPULATION, value);
+			
+		}
+		
+		// Crab attack!
+		else if (disasterChoice == 1) {
+			
+		}
+		
+		// Careless Beach-goers!
+		else {
+			
+		}
+				
+	}
+
+}

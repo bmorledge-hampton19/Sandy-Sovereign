@@ -1,5 +1,6 @@
 package sandySovereign;
 
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -33,11 +34,37 @@ public class Result {
 		this.failureMessage = failureMessage;
 		
 		// Initialize Maps to default values.
-		success = Stockpile.getResourceMap();
-		failure = Stockpile.getResourceMap();
+		success = new EnumMap<Stockpile.Resource,Integer>(Stockpile.Resource.class);
+		failure = new EnumMap<Stockpile.Resource,Integer>(Stockpile.Resource.class);
 		
 		// Initialize the Stockpile.
 		this.s = s;
+	}
+	
+	/**
+	 * Returns a Result object with the same success and failure messages, and scaled success and failure values.
+	 * @param scaleFactor specifies the multiplicative factor with which to scale up values.
+	 * @return the copied and scaled object.
+	 */
+	public Result clone(double scaleFactor) {
+		
+		// Create a new Result object to clone to.
+		Result clonedResult = new Result(successMessage, failureMessage, s);
+		
+		// Copy over the success and failure values scaled up.
+		for (Stockpile.Resource r : Stockpile.Resource.values()) {
+			
+			if (success.get(r) != null)
+				clonedResult.success.put(r, (int)(success.get(r)*scaleFactor));
+			
+			if (failure.get(r) != null)
+				clonedResult.failure.put(r, (int)(failure.get(r)*scaleFactor));
+			
+		}
+		
+		// Return the cloned object.
+		return clonedResult;
+		
 	}
 	
 	/**
@@ -64,8 +91,12 @@ public class Result {
 				// Make sure the current resource value has been set.
 				if (success.get(r) != null) {
 					
-					// Make the change.
-					s.alterResourceValue(r, success.get(r));
+					if (r != Stockpile.Resource.LEVEL)
+						// Make the change.
+						s.alterResourceValue(r, success.get(r));
+					else 
+						// Increase the level of the sand castle!
+						s.increaseSandCastleLevel();
 					
 					// Add to the message.
 					message += addChangeToMessage(r,success.get(r));
@@ -107,14 +138,23 @@ public class Result {
 		if (value < 0) {
 			
 			// If the resource was depleted completely, let the user know.
-			if (s.getResourceValue(r) == 0) {
+			if (s.getResourceValue(r) == 0)
 				return String.format("%s reduced completely...\n", r.toString());
-			}
+				
 			// Otherwise, tell the user by how much it was reduced.
 			else return String.format("%s reduced by %d.\n", r.toString(), -value);
 			
 		}
-		else return String.format("%s increased by %d.\n", r.toString(), value);
+		else {
+			
+			// If the resource was capped at the max value, let the user know.
+			if (s.getResourceValue(r) == s.getResourceMax(r))
+				return String.format("%s increased to maximum!\n", r.toString());
+			
+			// Otherwise, tell the user by how much it was increased.
+			else return String.format("%s increased by %d.\n", r.toString(), value);
+			
+		}
 		
 	}
 	
@@ -123,13 +163,19 @@ public class Result {
 	 * @param r specifies the resource to be modified.
 	 * @param value specifies the amount to alter the resource by.
 	 */
-	public void addToSuccess(Stockpile.Resource r, int value) {success.put(r, value);}
+	public void addToSuccess(Stockpile.Resource r, int value) {
+		success.put(r, value);
+		if (value==0) success.remove(r);
+	}
 	
 	/**
 	 * Adds another value to be altered in the stockpile on failure.
 	 * @param r specifies the resource to be modified.
 	 * @param value specifies the amount to alter the resource by.
 	 */
-	public void addToFailure(Stockpile.Resource r, int value) {failure.put(r, value);}
+	public void addToFailure(Stockpile.Resource r, int value) {
+		failure.put(r, value);
+		if (value==0) failure.remove(r);
+	}
 	
 }

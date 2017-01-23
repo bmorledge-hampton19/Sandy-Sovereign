@@ -20,8 +20,27 @@ public class Conditional {
 	 * @param s specifies the stockpile to be initialized with.
 	 */
 	Conditional(Stockpile s) {
-		required = Stockpile.getResourceMap();
+		required = new EnumMap<Stockpile.Resource,Integer>(Stockpile.Resource.class);
 		this.s = s;
+	}
+	
+	/**
+	 * copy a clone object with the required values scaled up.
+	 * @param scaleFactor specifies the multiplicative factor with which to scale up the requirements.
+	 * @return the cloned and scaled Conditional.
+	 */
+	public Conditional clone(double scaleFactor) {
+		
+		// The Conditional to be cloned to and scaled.
+		Conditional clonedConditional = new Conditional(s);
+		
+		// Copy over the requirements using the scale factor to scale them.
+		for (Stockpile.Resource r : required.keySet())
+			clonedConditional.required.put(r, (int)(required.get(r)*scaleFactor));
+		
+		// Return the cloned and scaled Conditional.
+		return clonedConditional;
+		
 	}
 	
 	/**

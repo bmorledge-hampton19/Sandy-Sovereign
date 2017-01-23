@@ -1,0 +1,12 @@
+package sandySovereign;
+
+/**
+ * A class which manages the communication between model, view and controller.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Manager {
+
+	
+	
+}

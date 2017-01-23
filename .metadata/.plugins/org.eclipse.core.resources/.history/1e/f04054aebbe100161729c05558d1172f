@@ -1,0 +1,45 @@
+package sandySovereign;
+
+import java.util.*;
+
+import javax.swing.JFrame;
+
+/**
+ * A class which manages the communication between model, view and controller.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Manager extends JFrame{
+
+	// An array for all of the different menus as well as constants to access the indices.
+	Menu[] menus;
+	static final int MAIN_MENU = 0;
+	static final int EVENT_VIEWER = 1;
+	static final int STATISTICS_VIEWER = 2;
+	static final int BUILDER = 3;
+	
+	// A counter to keep track of the number of turns that have passed.
+	private int turnsPassed;
+	
+	// The stockpile, where all resources are stored.
+	Stockpile stockpile;
+	
+	// The buildings to be purchased throughout the game.
+	Building[] buildings;
+	
+	/**
+	 * Constructor that initializes values such as the menus and stockpile.
+	 */
+	Manager() {
+		
+		// Initialize everything!
+		menus = new Menu[4];// TODO add the 4 menus to this array.
+		
+		stockpile = new Stockpile();
+		turnsPassed = 0;
+		
+		buildings = Building.initializeBuildings();
+		
+	}
+	
+}

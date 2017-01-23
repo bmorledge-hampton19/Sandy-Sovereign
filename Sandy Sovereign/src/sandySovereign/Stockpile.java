@@ -10,27 +10,51 @@ import java.util.Map;
  */
 public class Stockpile {
 
-	// The building materials available to the player.
-	private int seaweed;
-	private int seashells;
-	private int sand;
-	private int driftwoodChips;
-	private int pebbles;
+	// An EnumMap to keep track of the values associated with each resource.
+	Map<Resource,Integer> resourceValuesMap;
 	
-	// The status of the sand people.
-	private int population;
-	private int happiness;
-	private int food;
+	// An EnumMap to keep track of the maximum values for each resource.
+	Map<Resource,Integer> resourceMaxMap;
 	
-	// Special items.
-	private int sandDollars;
-	private int clamShells;
+	// An EnumMap to keep track of the income per turn for each resource.
+	Map<Resource,Integer> resourceIncomeMap;
+	
+	// The level of the grand sand castle!  When this reaches 5, the player wins the game!
+	int sandCastleLevel = 0;
+
+	
+	Stockpile() {
+		
+		// Initialize the EnumMaps.
+		
+		resourceValuesMap = new EnumMap<Resource,Integer>(Resource.class);
+		// TODO set default values.
+		
+		resourceMaxMap = new EnumMap<Resource,Integer>(Resource.class);
+		// TODO set default max values.
+		
+		resourceIncomeMap = new EnumMap<Resource,Integer>(Resource.class);
+		// TODO set default income values.
+		
+	}
 	
 	// The enumerator for all of the resources.
 	public enum Resource {
+		
+		// The building materials available to the player.
 		SEAWEED("Seaweed"), SEASHELLS("Seashells"), SAND("Sand"), DRIFTWOODCHIPS("Driftwood Chips"), PEBBLES("Pebbles"),
+		
+		// The statistics for the population.
 		POPULATION("Population"), HAPPINESS("Happiness"), FOOD("Food"),
-		SANDDOLLARS("Sand Dollars"), CLAMSHELLS("Clam Shells");
+		
+		// Defenses against natural disasters.
+		WALLS("Walls"), MOAT("Moat dryness"), PALISADES("Palisades"),
+		
+		// Special items.
+		SANDDOLLARS("Sand Dollars"), CLAMSHELLS("Clam Shells"),
+		
+		// The sand castle's level.
+		LEVEL("Sand Castle Level");
 		
 		// Add some stuff to allow conversion to Strings.
 		private String resourceName;
@@ -38,26 +62,7 @@ public class Stockpile {
 			this.resourceName = resourceName;
 		}
 		public String toString() {return resourceName;}
-		
-		
-	}
-	
-	/**
-	 * Returns an EnumMap with keys for all of the Resource enumerators and default values "null".
-	 * @return the default Resource EnumMap.
-	 */
-	static public Map<Resource,Integer> getResourceMap() {
-		
-		// The EnumMap to be returned.
-		Map<Resource,Integer> resources = new EnumMap<Resource,Integer>(Resource.class);
-		
-		// Add each resource to the EnumMap with the default value, "null".
-		for (Resource r : Resource.values())
-			resources.put(r, null);
-		
-		// Return the EnumMap
-		return resources;
-		
+			
 	}
 	
 	/**
@@ -65,120 +70,126 @@ public class Stockpile {
 	 * @param resource specifies the resource to retrieve the value from.
 	 * @return the retrieved value for the specified resource.
 	 */
-	public int getResourceValue(Resource resource) {
-		
-		// The value to be returned.
-		int returnThis = 0;
-		
-		// Use the enumerator value to determine what value needs to be passed back.
-		switch (resource) {
-		
-		case CLAMSHELLS:
-			returnThis = clamShells;
-			break;
-		case DRIFTWOODCHIPS:
-			returnThis = driftwoodChips;
-			break;
-		case FOOD:
-			returnThis = food;
-			break;
-		case HAPPINESS:
-			returnThis = happiness;
-			break;
-		case PEBBLES:
-			returnThis = pebbles;
-			break;
-		case POPULATION:
-			returnThis = population;
-			break;
-		case SAND:
-			returnThis = sand;
-			break;
-		case SANDDOLLARS:
-			returnThis = sandDollars;
-			break;
-		case SEASHELLS:
-			returnThis = seashells;
-			break;
-		case SEAWEED:
-			returnThis = seaweed;
-			break;
-			
-		}
-		
-		// Return the specified value.
-		return returnThis;
-		
-	}
+	public int getResourceValue(Resource resource) {return resourceValuesMap.get(resource);}
 	
 	/**
-	 * Add a given value to a resource determined by the passed enumerator value.
+	 * Add a given value to a resourceValue determined by the passed enumerator value.
 	 * @param resource specifies the resource to be altered.
 	 * @param alter specifies the amount to add to the resource value. (Can be negative.)
 	 */
 	public void alterResourceValue(Resource resource, int alter) {
 		
-		
 		// Use the enumerator value to determine which resource needs to have its value set.
 		// Also adjust for invalid values.
-		switch (resource) {
-		
-		case CLAMSHELLS:
-			clamShells += alter;
-			if (clamShells < 0) clamShells = 0;
-			break;
-			
-		case DRIFTWOODCHIPS:
-			driftwoodChips += alter;
-			if (driftwoodChips < 0) driftwoodChips = 0;
-			break;
-			
-		case FOOD:
-			food += alter;
-			if (food < 0) food = 0;
-			if (food > 1000) food = 1000;
-			break;
-			
-		case HAPPINESS:
-			happiness += alter;
-			if (happiness < 0) happiness = 0;
-			if (happiness > 100) happiness = 100;
-			break;
-			
-		case PEBBLES:
-			pebbles += alter;
-			if (pebbles < 0) pebbles = 0;
-			break;
-			
-		case POPULATION:
-			population += alter;
-			if (population < 0) population = 0;
-			break;
-			
-		case SAND:
-			sand += alter;
-			if (sand < 0) sand = 0;
-			break;
-			
-		case SANDDOLLARS:
-			sandDollars += alter;
-			if (sandDollars < 0) sandDollars = 0;
-			break;
-			
-		case SEASHELLS:
-			seashells += alter;
-			if (seashells < 0) seashells = 0;
-			break;
-			
-		case SEAWEED:
-			seaweed += alter;
-			if (seaweed < 0) seaweed = 0;
-			break;
-			
-		}
+		resourceValuesMap.put(resource, resourceValuesMap.get(resource)+alter);
+		if (resourceValuesMap.get(resource) < 0) resourceValuesMap.put(resource, 0);
+		else if (resourceValuesMap.get(resource) > resourceMaxMap.get(resource))
+			resourceValuesMap.put(resource, resourceMaxMap.get(resource));
 		
 	}
 	
 	
+	/**
+	 * Gets a resourceMax based on the enumerator value passed to the function.
+	 * @param resource specifies the resource to retrieve the maximum value from.
+	 * @return the retrieved maximum value for the specified resource.
+	 */
+	public int getResourceMax(Resource resource) {return resourceMaxMap.get(resource);}
+	
+	/**
+	 * Add a given value to a resourceMax determined by the passed enumerator value.
+	 * @param resource specifies the resource to be altered.
+	 * @param alter specifies the amount to add to the resource maximum value.
+	 */
+	public void alterResourceMax(Resource resource, int alter) {
+			
+		// Use the enumerator value to determine which resource needs to have its value set.
+		resourceMaxMap.put(resource, resourceMaxMap.get(resource)+alter);
+		
+	}
+	
+	/**
+	 * Gets a resourceIncome based on the enumerator value passed to the function.
+	 * @param resource specifies the resource to retrieve the maximum value from.
+	 * @return the retrieved Income value for the specified resource.
+	 */
+	public int getResourceIncome(Resource resource) {return resourceIncomeMap.get(resource);}
+	
+	/**
+	 * Add the income for every resource to that resource's value.
+	 */
+	public void applyIncome() {
+		// Run a loop to apply income to every resource.
+		for (Resource r : Resource.values())
+			resourceValuesMap.put(r, resourceValuesMap.get(r)+resourceIncomeMap.get(r));
+	}
+	
+	/**
+	 * Add a given value to a resourceIncome determined by the passed enumerator value.
+	 * @param resource specifies the resource to be altered.
+	 * @param alter specifies the amount to add to the resource Income value.
+	 */
+	public void alterResourceIncome(Resource resource, int alter) {
+			
+		// Use the enumerator value to determine which resource needs to have its value set.
+		resourceIncomeMap.put(resource, resourceIncomeMap.get(resource)+alter);
+		
+	}
+	
+	/**
+	 * Gets the sand castle's current level.
+	 * @return the sand castle's current level.
+	 */
+	public int getSandCastleLevel() {return sandCastleLevel;}
+	
+	/**
+	 * Increases the sand castle's level by one.
+	 */
+	public void increaseSandCastleLevel() {sandCastleLevel++;}
+	
+	/** 
+	 * Calculate the people's effectiveness at repelling a disaster.
+	 * @return the people's effectiveness at repelling disasters.
+	 */
+	public int getPeopleEffectiveness() {
+		return (int)(resourceValuesMap.get(Resource.POPULATION)*.5 *
+				(double)resourceValuesMap.get(Resource.HAPPINESS)/100.0);
+	}
+	
+	/**
+	 * Calculate 10% of the population.
+	 * @return 10% of the population.
+	 */
+	public int getTenPercentPopulation() {return (int)(resourceValuesMap.get(Resource.POPULATION)*.1);}
+	
+	/**
+	 * Return the lowest resource value in an array of resource types.
+	 * @param resources specifies the array of resources to be compared.
+	 * @return the lowest value from the given resources and people power.
+	 */
+	public int getLimitingAmount(Resource[] resources) {
+		
+		// The limiting resource.  The default value is the people's effectiveness.
+		int limitingAmount = getPeopleEffectiveness();
+		
+		// Check every other resource in the passed array to find the lowest.
+		for (int i = 0; i < resources.length; i++) {
+			
+			// If the resource is a defense type, the limiting amount is the difference between max and value.
+			if (resources[i] == Resource.MOAT || resources[i] == Resource.WALLS || resources[i] == Resource.PALISADES) {
+				if ((getResourceMax(resources[i]) - getResourceValue(resources[i])) < limitingAmount)
+					limitingAmount = (getResourceMax(resources[i]) - getResourceValue(resources[i]));
+			}
+			// Otherwise, just check the value of the resource.
+			else
+				if (getResourceValue(resources[i]) < limitingAmount)
+					limitingAmount = getResourceValue(resources[i]);
+			
+		}
+		
+		// Return the limiting resource.
+		return limitingAmount;
+		
+	}
 	
 }

@@ -1,0 +1,195 @@
+package sandySovereign;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import sandySovereign.Stockpile.Resource;
+
+public class EventManager {
+	
+	// Random events that are given to the player throughout the game.
+	ArrayList<Event> randomEvents;
+	
+	// The disasters that befall the player.
+	ArrayList<Event> disaster;
+	
+	// The fixed construction event that allows the player to reinforce defenses.
+	Event construction;
+	
+	// The fixed sand castle event that gives the player the option to increase the level of their sand castle.
+	Event sandCastleBuilder;
+	
+	/**
+	 * Initialize the events from a text file.
+	 * @param fileName specifies the name of the text file to be read from.
+	 */
+	EventManager(String fileName) {
+		
+		// Initialize the ArrayLists.
+		randomEvents = new ArrayList<Event>();
+		disaster = new ArrayList<Event>();
+		
+		// Load in the events.
+		loadEvents(fileName);
+	
+	}
+	
+	/**
+	 * Load in the details for the events.
+	 * @param fileName specifies the name of the text file to load in from.
+	 */
+	private void loadEvents(String fileName) {
+		
+		// TODO Parse text to load in events.
+		
+	}
+	
+	/**
+	 * Get a random event scaled based on the sand castle's level.
+	 * @param sandCastleLevel specifies the sand castle's level to scale based on.
+	 * @return the scaled random event.
+	 */
+	public Event retrieveRandomEvent(int sandCastleLevel) {
+		
+		// Get a random number generator.
+		Random RNG = new Random();
+		
+		// Return a random event scaled based on the sand castle's level.
+		return randomEvents.get(RNG.nextInt(randomEvents.size())).Clone((double)sandCastleLevel*1.25);
+		
+	}
+	
+	
+	public Event retrieveDisaster(Stockpile s, int turnNumber) {
+		
+		// Get a random number generator and a random number.
+		Random RNG = new Random();
+		int disasterChoice = RNG.nextInt(3);
+		
+		// Based on the random number, set up a disaster!
+		
+		// High tide!
+		if (disasterChoice == 0) return prepareHighTide(s,turnNumber);
+		
+		// Crab attack!
+		else if (disasterChoice == 1) return prepareCrabAttack(s,turnNumber);
+		
+		// Careless Beach-goers!
+		else return prepareCarelessBeachGoers(s,turnNumber);
+				
+	}
+	
+	/**
+	 * Prepares a high tide event adjusted for current values.
+	 * @param s specifies the stockpile to be accessed.
+	 * @param turnNumber specifies the turn number which will affect the severity of the disaster.
+	 * @return the prepared event.
+	 */
+	private Event prepareHighTide(Stockpile s, int turnNumber) {
+		
+		// Calculate the incoming flow of the tide.
+		int disasterPower = (int)(80*(1+turnNumber*0.01));
+		
+		// Calculate the overflow from the moat with people's assistance.
+		// A negative value indicates no overflow.
+		int moatOverflow = disasterPower - s.getResourceValue(Resource.MOAT) - s.getPeopleEffectiveness();
+		
+		// Calculate the potential overflow from the walls into the city. (Oh no!)
+		// A negative value indicates no overflow.
+		int wallOverflow = moatOverflow * 2 - s.getResourceValue(Resource.WALLS);
+		
+		// Set up the two options, sending people out to bail out the moat(0) or having them stay inside the walls(1).
+		//<3
+		
+		// If the moat doesn't overflow, only a few people die, and they are only minorly unhappy.
+		disaster.get(0).addSuccess(0, Resource.MOAT, -(disasterPower-s.getPeopleEffectiveness()));
+		disaster.get(0).addSuccess(0, Resource.POPULATION, -s.getTenPercentPopulation());
+		disaster.get(0).addSuccess(0, Resource.HAPPINESS, -15);
+
+		// If the moat overflows, more people die, the rest are unhappy, and the walls and possibly population take further damage.
+		disaster.get(0).addFailure(0, Resource.MOAT, -1000);
+		disaster.get(0).addFailure(0, Resource.HAPPINESS, -30);
+		disaster.get(0).addFailure(0, Resource.WALLS,-(moatOverflow));
+		if (wallOverflow > 0)
+			disaster.get(0).addFailure(0, Resource.POPULATION, 
+					-3*s.getTenPercentPopulation()-wallOverflow);
+		else disaster.get(0).addFailure(0, Resource.POPULATION, -3*s.getTenPercentPopulation());
+		
+		// The choice fails if the people cannot keep the water from overflowing the moat.
+		disaster.get(0).addConditional(0, Resource.MOAT, disasterPower-s.getPeopleEffectiveness());
+		
+		// Recalculate overflow values without people's assistance.
+		moatOverflow += s.getPeopleEffectiveness();
+		wallOverflow = moatOverflow * 2 - s.getResourceValue(Resource.WALLS);
+		
+		// If the moat is strong enough to hold, only it takes damage.
+		disaster.get(0).addSuccess(1, Resource.MOAT, -disasterPower);
+		
+		// If the moat fails, the walls and potentially the people take damage.
+		disaster.get(0).addFailure(1, Resource.MOAT, -1000);
+		disaster.get(0).addFailure(1, Resource.WALLS, moatOverflow);
+		if (wallOverflow>0) {
+			disaster.get(0).addFailure(1, Resource.POPULATION, wallOverflow);
+			disaster.get(0).addFailure(1, Resource.HAPPINESS, -20);
+		}
+		else {
+			disaster.get(0).addFailure(1, Resource.POPULATION, 0);
+			disaster.get(0).addFailure(1, Resource.HAPPINESS, 0);
+		}
+		
+		// The choice fails if the player's moat is not dry enough to prevent the water from reaching the walls.
+		disaster.get(0).addConditional(1, Resource.MOAT, disasterPower);
+		
+		// Return the prepared event.
+		return disaster.get(0);
+		
+	}
+	
+	/**
+	 * Prepares a crab attack event adjusted for current values.
+	 * @param s specifies the stockpile to be accessed.
+	 * @param turnNumber specifies the turn number which will affect the severity of the disaster.
+	 * @return the prepared event.
+	 */
+	private Event prepareCrabAttack(Stockpile s, int turnNumber) {
+		
+		// Calculate the incoming strength of the angry crabs!
+		int disasterPower = (int)(60*(1+turnNumber*0.1));
+		
+		// Calculate the potential overflow of the crabs attack if it breaches the walls even with the people's assistance.
+		// A negative value indicates no overflow.
+		int crabOverflow = disasterPower-s.getResourceValue(Resource.WALLS)-s.getPeopleEffectiveness();
+		
+		// Set up the two options: Having people go out to reinforce the wall, or keeping them inside the walls.
+		
+		//
+		disaster.get(1).addSuccess(0, Resource.POPULATION, -s.getTenPercentPopulation());
+		disaster.get(1).addSuccess(0, Resource.HAPPINESS, -15);
+		disaster.get(1).addSuccess(0, Resource.WALLS, -(disasterPower-s.getPeopleEffectiveness()));
+		
+		//
+		disaster.get(1).addFailure(0, Resource.POPULATION, -3*s.getTenPercentPopulation()-crabOverflow);
+		disaster.get(1).addFailure(0, Resource.HAPPINESS, -30);
+		disaster.get(1).addFailure(0, Resource.WALLS, -1000);
+		
+		// Return the prepared event.
+		return disaster.get(1);
+		
+	}
+	
+	/**
+	 * Prepares a careless beach-goer event adjusted for current values.
+	 * @param s specifies the stockpile to be accessed.
+	 * @param turnNumber specifies the turn number which will affect the severity of the disaster.
+	 * @return the prepared event.
+	 */
+	private Event prepareCarelessBeachGoers(Stockpile s, int turnNumber) {
+		
+		
+		
+		// Return the prepared event.
+		return disaster.get(2);
+		
+	}
+	
+}

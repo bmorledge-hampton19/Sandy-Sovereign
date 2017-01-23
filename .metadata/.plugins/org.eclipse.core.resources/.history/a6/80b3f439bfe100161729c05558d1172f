@@ -1,0 +1,11 @@
+package sandySovereign;
+
+import java.awt.event.ActionEvent;
+
+import javax.swing.JComponent;
+
+public class Menu extends JComponent {
+
+	
+
+}

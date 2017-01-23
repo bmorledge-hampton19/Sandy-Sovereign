@@ -1,0 +1,17 @@
+package sandySovereign;
+
+/**
+ * A class which manages the communication between model, view and controller.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/21/2017
+ */
+public class Manager {
+
+	// An array for all of the different menus as well as constants to access the indices.
+	Menu[] menus;
+	static final int MAIN_MENU = 0;
+	static final int EVENT_VIEWER = 1;
+	static final int STATISTICS_VIEWER = 2;
+	static final int BUILDER = 3;
+	
+}

@@ -1,0 +1,77 @@
+package sandySovereign;
+
+import java.util.Map;
+import java.util.EnumMap;
+
+/**
+ * A structure that can be purchased by the player to increase resource income and max.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/22/2017
+ */
+public class Building {
+
+	// Whether or not the building has been purchased.
+	boolean purchased;
+	
+	// The level of the sand castle required to purchase the building.
+	int sandCastleRequirement;
+	
+	// The cost of building as well as the effects.
+	Map<Stockpile.Resource,Integer> cost;
+	Map<Stockpile.Resource,Integer> incomeUpgrades;
+	Map<Stockpile.Resource,Integer> maxUpgrades;
+	
+	// The name of the building and a short description of its effects.
+	String name;
+	String description;
+	
+	/**
+	 * Constructs a building with the given name and description.
+	 * @param name specifies the name of the building.
+	 * @param description specifies the description of the building's effects.
+	 */
+	Building(String name, String description) {
+		
+		// Set the Strings.
+		this.name = name;
+		this.description = description;
+		
+		// Initialize EnumMaps.
+		cost = new EnumMap<Stockpile.Resource,Integer>(Stockpile.Resource.class);
+		incomeUpgrades = new EnumMap<Stockpile.Resource,Integer>(Stockpile.Resource.class);
+		maxUpgrades = new EnumMap<Stockpile.Resource,Integer>(Stockpile.Resource.class);
+		
+	}
+	
+	/**
+	 * Add a resource cost to the map of costs for the building.
+	 * @param r specifies the resource.
+	 * @param value specifies the amount of the resource required to purchase the building.
+	 */
+	public void addToCost(Stockpile.Resource r, int value) {cost.put(r, value);}
+	
+	/**
+	 * Add an upgrade to resource income to apply when the building is purchased.
+	 * @param r specifies the resource to upgrade income for.
+	 * @param value specifies the amount to upgrade by.
+	 */
+	public void addToIncomeUpgrades(Stockpile.Resource r, int value) {incomeUpgrades.put(r, value);}
+	
+	/**
+	 * Add an upgrade to resource capacity to apply when the building is purchased.
+	 * @param r specifies the resource to upgrade maximum for.
+	 * @param value specifies the amount to upgrade by.
+	 */
+	public void addToMaxUpgrades(Stockpile.Resource r, int value) {maxUpgrades.put(r, value);}
+	
+	
+	public boolean attemptPurchase(Stockpile s) {
+		
+		// First, check to see if all of the necessary resources are available to cover the cost.
+		
+		// The purchase was successful and upgrades have been applied!
+		return purchased=true;
+		
+	}
+	
+}

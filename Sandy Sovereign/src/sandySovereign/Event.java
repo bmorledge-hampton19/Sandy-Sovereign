@@ -1,7 +1,5 @@
 package sandySovereign;
 
-import java.util.ArrayList;
-
 /**
  * A class to keep track of the many events and choices presented to the player.
  * @author Benjamin Morledge-Hampton
@@ -24,11 +22,10 @@ public class Event {
 	
 	/**
 	 * Creates an event with the specified number of options, description text, and option text.
-	 * @param numberOfOptions specifies the number of choices available to the user.
 	 * @param description specifies the explanation for the event.
 	 * @param optionText specifies the descriptions for the choices.
 	 */
-	Event(int numberOfOptions, String description, String[] optionText) {
+	Event(String description, String[] optionText) {
 		
 		// Allocate space for arrays.
 		results = new Result[numberOfOptions];
@@ -36,10 +33,32 @@ public class Event {
 		this.optionText = new String[numberOfOptions];
 		
 		// Initialize all of the given values.
-		this.numberOfOptions = numberOfOptions;
+		numberOfOptions = optionText.length;
 		this.description = description;
 		for (int i = 0; i < numberOfOptions; i++)
 			this.optionText[i] = optionText[i];
+		
+	}
+	
+	/**
+	 * Clone the event while scaling up the values within each result and conditional.
+	 * @param scaleFactor specifies the multiplicative factor by which to scale values.
+	 * @return the cloned and scaled event.
+	 */
+	public Event Clone(double scaleFactor) {
+		
+		// Construct a new event with this events constructor parameters.
+		Event clonedEvent = new Event(description, optionText);
+	
+		// Copy over the results and conditionals, modifying their values based on the scaleFactor.
+		for (int i = 0; i < results.length; i++)
+			clonedEvent.results[i] = results[i].clone(scaleFactor);
+		
+		for (int i = 0; i < conditionals.length; i++)
+			clonedEvent.conditionals[i] = conditionals[i].clone(scaleFactor);
+	
+		// Return the cloned event.
+		return clonedEvent;
 		
 	}
 	
@@ -62,40 +81,36 @@ public class Event {
 	}
 	
 	/**
-	 * Add a set of success alterations to the indicated result object.
+	 * Add a success alteration to the indicated result object.
 	 * @param optionNumber specifies which result to alter.
-	 * @param r specifies the list of resources to be altered.
-	 * @param values is a parallel array to "r" which specifies by how much to alter the resources.
+	 * @param r specifies the resource to be altered.
+	 * @param value specifies by how much to alter the resource.
 	 */
-	public void addSuccess(int optionNumber, Stockpile.Resource[] r, int[] values) {
-		// Add to the indicated result's success occurrences for every instance in the given parallel arrays.
-		for (int i = 0; i < r.length; i++)
-			results[optionNumber].addToSuccess(r[i], values[i]);
+	public void addSuccess(int optionNumber, Stockpile.Resource r, int value) {
+		// Add to the indicated result's success occurrences.
+		results[optionNumber].addToSuccess(r, value);
 	}
 	
 	/**
-	 * Add a set of failure alterations to the indicated result object.
+	 * Add a failure alteration to the indicated result object.
 	 * @param optionNumber specifies which result to alter.
-	 * @param r specifies the list of resources to be altered.
-	 * @param values is a parallel array to "r" which specifies by how much to alter the resources.
+	 * @param r specifies the resource to be altered.
+	 * @param value specifies by how much to alter the resource.
 	 */
-	public void addFailure(int optionNumber, Stockpile.Resource[] r, int[] values) {
-		// Add to the indicated result's success occurrences for every instance in the given parallel arrays.
-		for (int i = 0; i < r.length; i++)
-			results[optionNumber].addToFailure(r[i], values[i]);
+	public void addFailure(int optionNumber, Stockpile.Resource r, int value) {
+		// Add to the indicated result's failure occurrences.
+		results[optionNumber].addToSuccess(r, value);
 	}
 	
 	/**
-	 * Add a set of requirements to the indicated conditional object.
+	 * Add a requirement to the indicated conditional object.
 	 * @param optionNumber specifies which conditional to alter.
-	 * @param r specifies the list of resources to be checked.
-	 * @param values is a parallel array to "r" which specifies the minimum required amount of that resource.
+	 * @param r specifies the resource to be checked.
+	 * @param values specifies the minimum required amount of that resource.
 	 */
-	public void addConditional(int optionNumber, Stockpile.Resource[] r, int[] values) {
-		// Add to the indicated conditional's requirements for every instance in the given parallel arrays.
-		for (int i = 0; i < r.length; i++) {
-			conditionals[optionNumber].addCondition(r[i], values[i]);
-		}
+	public void addConditional(int optionNumber, Stockpile.Resource r, int value) {
+		// Add to the indicated conditional's requirements.
+		conditionals[optionNumber].addCondition(r, value);
 	}
 	
 	/**

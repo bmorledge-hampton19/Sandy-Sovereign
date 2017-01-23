@@ -1,0 +1,63 @@
+package sandySovereign;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class EventManager {
+	
+	// Random events that are given to the player throughout the game.
+	ArrayList<Event> randomEvents;
+	
+	// The disasters that befall the player.
+	ArrayList<Event> disaster;
+	
+	// The fixed construction event that allows the player to reinforce defenses.
+	Event construction;
+	
+	// The fixed sand castle event that gives the player the option to increase the level of their sand castle.
+	Event sandCastleBuilder;
+	
+	/**
+	 * Initialize the events from a text file.
+	 * @param fileName specifies the name of the text file to be read from.
+	 */
+	EventManager(String fileName) {
+		
+		// Initialize the ArrayLists.
+		randomEvents = new ArrayList<Event>();
+		disaster = new ArrayList<Event>();
+		
+		// Load in the events.
+		loadEvents(fileName);
+	
+	}
+	
+	/**
+	 * Load in the details for the events.
+	 * @param fileName specifies the name of the text file to load in from.
+	 */
+	private void loadEvents(String fileName) {
+		
+		// TODO Parse text to load in events.
+		
+	}
+	
+	/**
+	 * Get a random event scaled based on the sand castle's level.
+	 * @param sandCastleLevel specifies the sand castle's level to scale based on.
+	 * @return the scaled random event.
+	 */
+	public Event retrieveRandomEvent(int sandCastleLevel) {
+		
+		// Get a random number generator.
+		Random RNG = new Random();
+		
+		// Return a random event scaled based on the sand castle's level.
+		return randomEvents.get(RNG.nextInt(randomEvents.size())).Clone((double)sandCastleLevel*1.25);
+		
+	}
+	
+	
+	
+
+}

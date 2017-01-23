@@ -1,0 +1,22 @@
+package sandySovereign;
+
+import java.util.Map;
+import java.util.EnumMap;
+
+/**
+ * A structure that can be purchased by the player to increase resource income and max.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/22/2017
+ */
+public class Building {
+
+	// Whether or not the building has been purchased.
+	boolean purchased;
+	
+	// The level of the sand castle required to purchase the building.
+	int sandCastleRequirement;
+	
+	// The cost of building as well as the effects.
+	Map<Stockpile.Resource,Integer> cost;
+	
+}
