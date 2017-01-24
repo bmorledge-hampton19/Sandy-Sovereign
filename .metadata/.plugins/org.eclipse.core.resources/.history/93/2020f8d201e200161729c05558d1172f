@@ -1,0 +1,47 @@
+package sandySovereign;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * The menu used to view the events that drive the game.  Also serves as a hub for the builder and statistics menus.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/23/2017
+ */
+public class EventViewer extends Menu implements ActionListener{
+	
+	// The event whose parameters are being displayed.
+	Event currentEvent;
+
+	/**
+	 * Initialize the menu with default buttons and a null event.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	public EventViewer(double scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		
+		addButton(50, 700, "Statistics");
+		addButton(700, 700, "Builder");
+		currentEvent = null;
+		
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		
+		if (currentEvent == null) {
+			displayText(g, 200, 200, "Building Phase. Press the button below to advance.", 20);
+		}
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == buttons.get(0)) manager.switchMenus(Manager.STATISTICS_VIEWER);
+		
+	}
+
+}

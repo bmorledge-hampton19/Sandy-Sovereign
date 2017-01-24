@@ -1,0 +1,14 @@
+package sandySovereign;
+
+import javax.swing.JComponent;
+
+public class Menu extends JComponent {
+
+	// The factor by which to scale the UI.
+	int scaleFactor;
+	
+	Menu(int scaleFactor) {
+		this.scaleFactor = scaleFactor;
+	}
+
+}

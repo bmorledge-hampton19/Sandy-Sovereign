@@ -11,16 +11,16 @@ import java.util.Map;
 public class Stockpile {
 
 	// An EnumMap to keep track of the values associated with each resource.
-	Map<Resource,Integer> resourceValuesMap;
+	private Map<Resource,Integer> resourceValuesMap;
 	
 	// An EnumMap to keep track of the maximum values for each resource.
-	Map<Resource,Integer> resourceMaxMap;
+	private Map<Resource,Integer> resourceMaxMap;
 	
 	// An EnumMap to keep track of the income per turn for each resource.
-	Map<Resource,Integer> resourceIncomeMap;
+	private Map<Resource,Integer> resourceIncomeMap;
 	
 	// The level of the grand sand castle!  When this reaches 5, the player wins the game!
-	int sandCastleLevel = 0;
+	private int sandCastleLevel = 0;
 
 	
 	Stockpile() {
@@ -28,13 +28,32 @@ public class Stockpile {
 		// Initialize the EnumMaps.
 		
 		resourceValuesMap = new EnumMap<Resource,Integer>(Resource.class);
-		// TODO set default values.
+		resourceValuesMap.put(Resource.SEAWEED, 30);
+		resourceValuesMap.put(Resource.SEASHELLS, 30);
+		resourceValuesMap.put(Resource.SAND, 30);
+		resourceValuesMap.put(Resource.DRIFTWOODCHIPS, 30);
+		resourceValuesMap.put(Resource.PEBBLES, 30);
+		resourceValuesMap.put(Resource.POPULATION, 30);
+		resourceValuesMap.put(Resource.FOOD, 30);
+		resourceValuesMap.put(Resource.HAPPINESS, 100);
+		resourceValuesMap.put(Resource.WALLS, 50);
+		resourceValuesMap.put(Resource.MOAT, 50);
+		resourceValuesMap.put(Resource.PALISADES, 50);
+		resourceValuesMap.put(Resource.SANDDOLLARS, 0);
+		resourceValuesMap.put(Resource.CLAMSHELLS, 0);
 		
 		resourceMaxMap = new EnumMap<Resource,Integer>(Resource.class);
-		// TODO set default max values.
+		for (Resource r : Resource.values()) 
+			resourceMaxMap.put(r, 100);
 		
 		resourceIncomeMap = new EnumMap<Resource,Integer>(Resource.class);
-		// TODO set default income values.
+		resourceIncomeMap.put(Resource.SEAWEED, 3);
+		resourceIncomeMap.put(Resource.SEASHELLS, 3);
+		resourceIncomeMap.put(Resource.SAND, 3);
+		resourceIncomeMap.put(Resource.DRIFTWOODCHIPS, 3);
+		resourceIncomeMap.put(Resource.PEBBLES, 3);
+		resourceIncomeMap.put(Resource.POPULATION, 3);
+		resourceIncomeMap.put(Resource.FOOD, 3);
 		
 	}
 	
@@ -117,11 +136,47 @@ public class Stockpile {
 	
 	/**
 	 * Add the income for every resource to that resource's value.
+	 * @return any info not explained by basic income.
 	 */
-	public void applyIncome() {
-		// Run a loop to apply income to every resource.
+	public String applyIncome() {
+		
+		// The string of info to return.
+		String incomeInfo;
+		
+		// Run a loop to apply income to every basic resource.
 		for (Resource r : Resource.values())
-			resourceValuesMap.put(r, resourceValuesMap.get(r)+resourceIncomeMap.get(r));
+			if (resourceIncomeMap.get(r) != null)
+				resourceValuesMap.put(r, resourceValuesMap.get(r)+resourceIncomeMap.get(r));
+		
+		// Sand people gotta eat too!
+		alterResourceValue(Resource.FOOD,-getResourceValue(Resource.POPULATION)/10);
+		
+		if (getResourceValue(Resource.FOOD) == 0)
+			incomeInfo = "Your food stores are empty...\n";
+		else
+			incomeInfo = String.format("Your people ate %d food.\n", getResourceValue(Resource.POPULATION)/10);
+		
+		// If food stores are depleted, people are unhappy about it!
+		if (resourceValuesMap.get(Resource.FOOD) == 0) {
+			incomeInfo += "Your people are not happy about having no food...\nHappiness decreased by 10%\n";
+			alterResourceValue(Resource.HAPPINESS, -10);
+		}
+		// If there's enough food to go around, people are pretty happy!
+		else {
+			incomeInfo += "Your people are happy to be well fed!\nHappiness increased by 10%\n";
+			alterResourceValue(Resource.HAPPINESS, 10);
+		}
+			
+		// If people are really unhappy, they start to leave your kingdom!
+		if (resourceValuesMap.get(Resource.HAPPINESS) < 31) {
+			incomeInfo += "Your people are not happy at all with your rule...\n";
+			incomeInfo += String.format("%d people have left your kingdom.", getTenPercentPopulation());
+			alterResourceValue(Resource.POPULATION, -getTenPercentPopulation());
+		}
+			
+		// Return the informational string.
+		return incomeInfo;
+		
 	}
 	
 	/**

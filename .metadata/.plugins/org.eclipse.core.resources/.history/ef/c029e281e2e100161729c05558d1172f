@@ -1,0 +1,10 @@
+package sandySovereign;
+
+public class Builder extends Menu {
+
+	public Builder(int scaleFactor) {
+		super(scaleFactor);
+		// TODO Auto-generated constructor stub
+	}
+
+}

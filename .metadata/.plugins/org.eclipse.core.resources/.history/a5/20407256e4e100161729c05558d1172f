@@ -1,0 +1,8 @@
+package sandySovereign;
+
+public class SandSovereign {
+
+	// Create a new manager, and that's it!
+	Manager manager = new Manager();
+	
+}

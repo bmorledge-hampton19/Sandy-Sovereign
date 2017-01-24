@@ -1,0 +1,17 @@
+package sandySovereign;
+
+import java.awt.event.ActionListener;
+
+public class EventViewer extends Menu implements ActionListener{
+
+	/**
+	 * The menu used to view the events that drive the game.  Also serves as a hub for the builder and statistics menus.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	public EventViewer(int scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		// TODO Auto-generated constructor stub
+	}
+
+}

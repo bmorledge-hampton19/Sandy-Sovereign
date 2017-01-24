@@ -1,0 +1,15 @@
+package sandySovereign;
+
+public class StatisticsViewer extends Menu {
+
+	/**
+	 * This menu allows the user to see specifics on each of their resources.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	public StatisticsViewer(int scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		// TODO Auto-generated constructor stub
+	}
+
+}

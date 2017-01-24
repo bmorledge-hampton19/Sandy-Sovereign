@@ -1,0 +1,10 @@
+package sandySovereign;
+
+public class GameOver extends Menu {
+
+	public GameOver(int scaleFactor) {
+		super(scaleFactor);
+		// TODO Auto-generated constructor stub
+	}
+
+}

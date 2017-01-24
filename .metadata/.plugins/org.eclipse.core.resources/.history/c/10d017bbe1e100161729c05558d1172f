@@ -1,0 +1,10 @@
+package sandySovereign;
+
+public class EventViewer extends Menu {
+
+	public EventViewer(int scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		// TODO Auto-generated constructor stub
+	}
+
+}

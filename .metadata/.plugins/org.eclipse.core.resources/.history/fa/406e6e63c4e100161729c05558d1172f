@@ -1,0 +1,37 @@
+package sandySovereign;
+
+import java.awt.Font;
+import java.awt.Graphics;
+
+import javax.swing.JComponent;
+
+public class Menu extends JComponent {
+
+	// The factor by which to scale the UI.
+	int scaleFactor;
+	
+	/**
+	 * Constructor which just sets the scale factor.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 */
+	Menu(int scaleFactor) {
+		this.scaleFactor = scaleFactor;
+	}
+
+	
+	public void displayText(Graphics g, int x, int y, String text, int fontSize) {
+		
+		// An array of all of the individual lines of text.
+		String[] lines = text.split("\n");
+		
+		// Set the font size.
+		g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize*scaleFactor));
+		
+		// Display the lines of text one at a time taking into account the font size and scale factor.
+		for (int i = 0; i < lines.length; i++) {
+			g.drawString(lines[i], x*scaleFactor, y*scaleFactor+i*fontSize*scaleFactor);
+		}
+		
+	}
+	
+}

@@ -1,0 +1,15 @@
+package sandySovereign;
+
+public class Builder extends Menu {
+
+	/**
+	 * This menu allows the user to purchase buildings to upgrade the stockpile.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	public Builder(int scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		// TODO Auto-generated constructor stub
+	}
+
+}

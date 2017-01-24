@@ -1,0 +1,37 @@
+package sandySovereign;
+
+import java.awt.Graphics;
+
+public class TitleScreen extends Menu {
+
+	// A brief description of the game.
+	String gameDescription;
+	
+	TitleScreen(int scaleFactor) {
+		super(scaleFactor);
+
+		// Set up the title text.
+		gameDescription = "Welcome!  King of the sand people, a small kingdom\n";
+		gameDescription += "to be sure, but not lacking in determination!\n";
+		gameDescription += "Your people are eagerly awaiting your orders\n";
+		gameDescription += "in the hopes that you will one day lead them\n";
+		gameDescription += "to greatness by completing the grand sand castle!\n";
+		gameDescription += "The beach is fraught with peril however.  Guide\n";
+		gameDescription += "your people carefully if you wish to succeed!";
+		
+		// Create the button to move past the title screen.
+		addButton(375, 500, "Begin");
+
+	}
+	
+	public void paintComponent(Graphics g) {
+		
+		// Display the title text.
+		displayText(g, 300, 30, "Sandy Sovereign", 40);
+		
+		// Display the game's description.
+		displayText(g, 100, 200, gameDescription, 20);
+		
+	}
+
+}

@@ -1,0 +1,38 @@
+package sandySovereign;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GameOver extends Menu implements ActionListener{
+
+	//The text shown on win or lose.
+	String winText;
+	String loseText;
+	
+	/**
+	 * This menu pops up when the game ends and tells the user if they won or lost.
+	 * @param scaleFactor
+	 * @param manager
+	 */
+	public GameOver(double scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+
+		// Set up the descriptive text for winning or losing here!
+		winText = "Your kingdom is flourishing and your grand sand castle has brought\n\n";
+		winText += "wealth, happiness, and recognition to your people who so deserve it!\n\n";
+		winText += "Your name will go down in the history of the sand people as a legend!\n\n";
+		winText += "You've done your duty, and you've done it well.\n\n\n";
+		winText += "You are truly a grand, wise, noble, sandy sovereign.";
+		
+		loseText = "Your kingdom is in shambles from your poor luck and leadership...\n\n";
+		loseText += "Certainly your people would look down on you with contempt,\n\n";
+		loseText += "but sadly, no one is left to do so.  Only you remain...\n\n";
+		loseText += "Perhaps another time will see you victorious, but not today...\n\n";
+		
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {}
+
+}

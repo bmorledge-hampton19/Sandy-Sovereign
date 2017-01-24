@@ -1,0 +1,77 @@
+package sandySovereign;
+
+import java.awt.Font;
+import java.awt.Graphics;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+
+public abstract class Menu extends JComponent {
+
+	// The factor by which to scale the UI.
+	int scaleFactor;
+	
+	// Buttons in the UI.
+	ArrayList<JButton> buttons;
+	
+	// The manager that the menu will refer back to.
+	Manager manager;
+	
+	/**
+	 * Constructor which just sets the scale factor, initializes buttons, and sets the layout to null.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	Menu(int scaleFactor, Manager manager) {
+		this.setLayout(null);
+		this.manager = manager;
+		this.scaleFactor = scaleFactor;
+		buttons = new ArrayList<JButton>();
+	}
+
+	/**
+	 * Prints text to the screen.
+	 * @param g specifies the Graphics object to draw the text.
+	 * @param x specifies the x position of the text.
+	 * @param y specifies the y position of the text.
+	 * @param text specifies the text to be displayed.
+	 * @param fontSize specifies the size of the text.
+	 */
+	public void displayText(Graphics g, int x, int y, String text, int fontSize) {
+		
+		// An array of all of the individual lines of text.
+		String[] lines = text.split("\n");
+		
+		// Set the font size.
+		g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize*scaleFactor));
+		
+		// Display the lines of text one at a time taking into account the font size and scale factor.
+		for (int i = 0; i < lines.length; i++) {
+			g.drawString(lines[i], x*scaleFactor, y*scaleFactor+i*fontSize*scaleFactor);
+		}
+		
+	}
+	
+	/**
+	 * Adds a button to the buttons array list.
+	 * @param x specifies the x coordinate for the button.
+	 * @param y specifies the y coordinate for the button.
+	 * @param text specifies the text to be displayed on the button.
+	 */
+	public void addButton(int x, int y, String text) {
+		
+		// The new button to be added to the array list.
+		JButton newButton = new JButton(text);
+		
+		// Set the buttons bounds based on the given x and y values.
+		newButton.setBounds(x*scaleFactor, y*scaleFactor, 
+				newButton.getPreferredSize().width*scaleFactor, newButton.getPreferredSize().height*scaleFactor);
+		
+		// Add the new button to the array list!
+		buttons.add(newButton);
+		
+	}
+
+	
+}

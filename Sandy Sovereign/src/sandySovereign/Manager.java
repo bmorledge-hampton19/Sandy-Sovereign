@@ -13,26 +13,26 @@ public class Manager extends JFrame{
 
 	// An array for all of the different menus as well as constants to access the indices.
 	Menu[] menus;
-	static final int MAIN_MENU = 0;
+	static final int TITLE_SCREEN = 0;
 	static final int EVENT_VIEWER = 1;
 	static final int STATISTICS_VIEWER = 2;
 	static final int BUILDER = 3;
 	static final int GAME_OVER = 4;
 	
 	// A value to keep track of the current menu type.
-	int currentMenu;
+	private int currentMenu;
 	
 	// A counter to keep track of the number of turns that have passed.
 	private int currentTurn;
 	
 	// The degree by which the UI needs to be scaled.
-	double scaleFactor;
+	private double scaleFactor;
 	
 	// Keeps track of whether or not the sand castle builder event has been given in the current cycle of ten turns.
-	boolean sandCastleBuilderGiven;
+	private boolean sandCastleBuilderGiven;
 	
 	// Tells the Game Over screen whether the user has won or lost.
-	boolean won;
+	private boolean won;
 	
 	// The current event being used.
 	private Event currentEvent;
@@ -41,10 +41,10 @@ public class Manager extends JFrame{
 	private EventManager eventManager;
 	
 	// The stockpile, where all resources are stored.
-	Stockpile stockpile;
+	private Stockpile stockpile;
 	
 	// The buildings to be purchased throughout the game.
-	Building[] buildings;
+	private Building[] buildings;
 	
 	/**
 	 * Constructor that initializes values such as the menus and stockpile.
@@ -61,18 +61,24 @@ public class Manager extends JFrame{
 		
 		// Continue setting up JFrame.
 		setSize((int)(800*scaleFactor),(int)(800*scaleFactor));
-		setVisible(true);
 		
 		// Initialize everything!
-		menus = new Menu[5];// TODO add the 5 menus to this array.
+		menus = new Menu[5];
+		menus[0] = new TitleScreen(scaleFactor,this);
+		menus[1] = new EventViewer(scaleFactor,this);
+		menus[2] = new StatisticsViewer(scaleFactor,this);
+		menus[3] = new Builder(scaleFactor,this);
+		menus[4] = new GameOver(scaleFactor,this);
 		
-		add(menus[MAIN_MENU]);
+		add(menus[TITLE_SCREEN]);
 		
-		eventManager = new EventManager("");
 		stockpile = new Stockpile();
+		eventManager = new EventManager("Events.txt",stockpile);
 		currentTurn = 1;
 		
 		buildings = Building.initializeBuildings();
+		
+		setVisible(true);
 		
 	}
 	
@@ -106,6 +112,9 @@ public class Manager extends JFrame{
 	public void switchMenus(int newMenu) {
 		remove(menus[currentMenu]);
 		add(menus[newMenu]);
+		currentMenu = newMenu;
+		menus[currentMenu].repaint();
+		setVisible(true);
 	}
 	
 	/**
@@ -113,10 +122,9 @@ public class Manager extends JFrame{
 	 * @param choice specifies the option chosen by the user.
 	 * @return the sandCastleBuilderEvent if appropriate.
 	 */
-	public Event concludeEvent(int choice) {
+	public Event concludeEvent() {
 		
-		// Activate the results of the event.
-		currentEvent.activateResult(choice);
+		// Set the current event to null.
 		currentEvent = null;
 		
 		// Check to see if it's time for the sandCastleBuilder event.
@@ -154,5 +162,17 @@ public class Manager extends JFrame{
 	 * @return whether the user won or not.
 	 */
 	public boolean hasWon() {return won;}
+	
+	/**
+	 * Returns the stockpile.
+	 * @return the stockpile.
+	 */
+	public Stockpile getStockpile() {return stockpile;}
+	
+	/**
+	 * Returns the current turn.
+	 * @return the current turn.
+	 */
+	public int getCurrentTurn() {return currentTurn;}
 	
 }

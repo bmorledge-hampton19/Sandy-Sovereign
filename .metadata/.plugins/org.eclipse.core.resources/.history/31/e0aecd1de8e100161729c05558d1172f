@@ -1,0 +1,24 @@
+package sandySovereign;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GameOver extends Menu implements ActionListener{
+
+	/**
+	 * This menu pops up when the game ends and tells the user if they won or lost.
+	 * @param scaleFactor
+	 * @param manager
+	 */
+	public GameOver(double scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -27,13 +27,15 @@ public class Event {
 	 */
 	Event(String description, String[] optionText) {
 		
+		// Do this first.
+		numberOfOptions = optionText.length;		
+		
 		// Allocate space for arrays.
 		results = new Result[numberOfOptions];
 		conditionals = new Conditional[numberOfOptions];
 		this.optionText = new String[numberOfOptions];
 		
 		// Initialize all of the given values.
-		numberOfOptions = optionText.length;
 		this.description = description;
 		for (int i = 0; i < numberOfOptions; i++)
 			this.optionText[i] = optionText[i];
@@ -134,5 +136,11 @@ public class Event {
 	 * @return the description text for the given option.
 	 */
 	public String getOptionText(int index) {return optionText[index];}
+	
+	/**
+	 * returns the number of options in the event.
+	 * @return the number of options in the event.
+	 */
+	public int getNumberOfOptions() {return numberOfOptions;}
 	
 }

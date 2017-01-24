@@ -1,0 +1,10 @@
+package sandySovereign;
+
+public class StatisticsViewer extends Menu {
+
+	public StatisticsViewer(int scaleFactor) {
+		super(scaleFactor);
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,59 @@
+package sandySovereign;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * Shows the game's title and introductory text.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/23/2017
+ */
+public class TitleScreen extends Menu implements ActionListener{
+
+	// A brief description of the game.
+	String gameDescription;
+	
+	/**
+	 * Constructor which initializes the game's description and adds the button to begin the game.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	TitleScreen(double scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+
+		// Set up the title text.
+		gameDescription = "Welcome!  You are king of the kingdom of the sand people, a small kingdom\n\n";
+		gameDescription += "to be sure, but not lacking in determination!\n\n";
+		gameDescription += "Your people are eagerly awaiting your orders in the hopes that you will\n\n";
+		gameDescription += "one day lead them to greatness by completing the grand sand castle!\n\n";
+		gameDescription += "The beach is fraught with peril however!\n\n";
+		gameDescription += "You must guide your people with great care if you wish to succeed!";
+		
+		// Create the button to move past the title screen.
+		addButton(360, 420, "Begin");
+		
+		repaint();
+
+	}
+	
+	public void paintComponent(Graphics g) {
+		
+		// Display the title text.
+		displayText(g, 250, 50, "Sandy Sovereign", 40);
+		
+		// Display the game's description.
+		displayText(g, 100, 200, gameDescription, 20);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// Switch menus to start the game if the begin button is pressed.
+		if (e.getSource() == buttons.get(0))
+			manager.switchMenus(Manager.EVENT_VIEWER);
+	}
+	
+	
+
+}
