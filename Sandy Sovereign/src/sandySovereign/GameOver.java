@@ -38,7 +38,7 @@ public class GameOver extends Menu implements ActionListener{
 		
 		if (manager.hasWon()){
 			// Display winning text.
-			displayText(g, 300, 30, "YOU WON!!!", 40);
+			displayText(g, 300, 50, "YOU WON!!!", 40);
 			displayText(g, 100, 200, winText, 20);
 		}
 		else {

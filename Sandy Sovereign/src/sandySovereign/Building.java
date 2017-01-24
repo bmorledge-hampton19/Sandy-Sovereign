@@ -60,8 +60,6 @@ public class Building {
 		// The array that the buildings will be put into.
 		Building[] buildings = new Building[16];
 		
-		// TODO Figure out buildings!!!!!
-		
 		// Tier 1 buildings (1st Income upgrades.)
 		buildings[0] = new Building("Beach Comber's Hut", 
 				"Trains sand people to comb the beach for driftwood,\nquality sand, and pebbles.", 1);

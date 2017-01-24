@@ -1,0 +1,135 @@
+package sandySovereign;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * This menu allows the user to purchase buildings to upgrade the stockpile.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/24/2017
+ */
+public class Builder extends Menu implements ActionListener{
+
+	// Keeps track of the tier being viewed.
+	private int tier;
+
+	// The buildings to be purchased throughout the game.
+	private Building[] buildings;
+	
+	// Text to notify the user about the success of the purchase.
+	private String notificationText;
+	
+	/**
+	 * sets the tier to the default value, 0, adds buttons, and initializes the buildings.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	public Builder(double scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		
+		tier = 0;
+		buildings = Building.initializeBuildings();
+		
+		// Initialize Buttons.
+		addButton(50, 100, "Back");
+		addButton(50, 700, "Previous Tier");
+		addButton(700, 700, "Next Tier");
+		addButton(125, 400, "Purchase");
+		addButton(275, 400, "Purchase");
+		addButton(425, 400, "Purchase");
+		addButton(575, 400, "Purchase");
+		
+		// Hide and disable buttons as necessary.
+		buttons.get(1).setEnabled(false);
+		buttons.get(2).setEnabled(false);
+		
+		for (int i = 3; i < 7; i++) buttons.get(i).setVisible(false);
+		
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		
+		// Display the title text and any notification text.
+		displayText(g, 350, 50, "Builder", 40);
+		displayText(g, 200, 100, notificationText, 20);
+		
+		// Reset the notification text.
+		notificationText = "";
+		
+		// Display buildings based on the current tier.
+		if (tier == 0) {
+			
+			// First, check to see if the the button for the next tier should be enabled.
+			if (manager.getStockpile().getSandCastleLevel()>0) 
+				buttons.get(2).setEnabled(true);
+			
+			// Display simple text.
+			displayText(g, 200, 300, "No buildings available for this tier", 30);
+			
+		}
+		
+		else {
+			
+			for (int i = 1; i < 5; i++) {
+				
+				if (tier == i) {
+				
+					// First, check to see if the the button for the next tier should be enabled.
+					if (manager.getStockpile().getSandCastleLevel()>i) 
+						buttons.get(2).setEnabled(true);
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		// Go back with this button.
+		if (e.getSource() == buttons.get(0))
+			manager.switchMenus(Manager.EVENT_VIEWER);
+		
+		// Go back a tier with this button.
+		else if (e.getSource() == buttons.get(1)) {
+			
+			tier--;
+			
+			// Get rid of the purchased buttons if rolling back to the first tier.
+			if (tier == 0) for (int i = 3; i < 7; i++) buttons.get(i).setVisible(false);
+			
+			repaint();
+		}
+		
+		// Move up a tier with this button.
+		else if (e.getSource() == buttons.get(2)) {
+			tier++;
+			repaint();
+		}
+		
+		else {
+			// Purchase buildings with these buttons.
+			for (int i = 0; i < 4; i++) {
+				
+				if (e.getSource() == buttons.get(i+3)) {
+					
+					// Attempt the purchase.
+					if (buildings[i+4*(tier-1)].attemptPurchase(manager.getStockpile()))
+						notificationText = "Building purchased!";
+					else notificationText = "Purchase Failed.\nNot enough resources...";
+					
+					repaint();
+					
+				}
+				
+			}
+		}
+			
+	}
+
+}

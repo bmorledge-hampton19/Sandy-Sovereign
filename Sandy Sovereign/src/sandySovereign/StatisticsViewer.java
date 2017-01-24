@@ -35,7 +35,7 @@ public class StatisticsViewer extends Menu implements ActionListener{
 		Stockpile s = manager.getStockpile();
 		
 		// Display headers.
-		displayText(g, 275, 30, "Statistics", 40);
+		displayText(g, 275, 50, "Statistics", 40);
 		
 		displayText(g, 10, 100, "Resources:", 20);
 		displayText(g, 100, 100, "Value/Max (+Income)", 20);
