@@ -1,0 +1,183 @@
+DESCRIPTION
+Your beautiful kingdom may have been high and dry for 
+some time now, but high tide is fast approaching...
+Quickly now!  Do you want to send out your people
+to help bail out the moat as the tide encroaches,
+or would they be better off staying inside and
+leaving the moat to fend for itself...
+
+OPTION TEXT
+Have the people assist in
+bailing out the moat.
+NEXT
+Have the people remain 
+inside the city walls.
+
+CREATE EVENT
+
+SUCCESS TEXT
+Your hardworking people have succeeded in keeping the
+moat from overflowing!  Some were washed out to sea,
+and the rest aren't happy about it, but your walls
+are certainly glad to be high and dry!
+NEXT
+Even without the help of your people, the moat did
+its duty in protecting your walls and people.
+On the downside, the moat will certainly need
+attention before the next tide rolls along...
+
+FAILURE TEXT
+Despite their hard work, your people were unsuccessful
+in keeping the tide from breaching your moat...
+The ocean waves proceeded to wreack havoc on your 
+walls and city, and many people were washed out to sea...
+Needless to say, morale has plummeted.
+NEXT
+The moat did its best, but it wasn't enough to prevent
+the tide from reaching your walls and dealing immense
+damage to your infrastructure.  Your people aren't happy
+with the outcome, but at least they were relatively safe
+in their homes.
+
+INIT R AND C
+
+END EVENT
+DISASTER
+
+
+DESCRIPTION
+
+OPTION TEXT
+
+CREATE EVENT
+
+SUCCESS TEXT
+
+FAILURE TEXT
+
+INIT R AND C
+
+SUCCESS RESULT
+
+FAILURE RESULT
+
+CONDITIONAL
+
+END EVENT
+
+
+DESCRIPTION
+Today seems like a relatively peaceful day.  What to do?
+Ah!  Perhaps it's best to work on shoring up defenses.
+You never can be too careful, and who knows how close
+the next disaster is... What would you like to build up?
+Keep in mind, the walls require seashells, sand, and 
+pebbles, the palisades require driftwood and seaweed,
+and the moat simply requires manpower (although such 
+dull work certainly doesn't help morale...)
+
+OPTION TEXT
+Bail out the moat.
+NEXT
+Build up the walls.
+NEXT
+Put up palisades.
+
+CREATE EVENT
+
+SUCCESS TEXT
+After a few hours of toiling away, your moat has been
+dried out by your determined population!
+NEXT
+Your people get to work on repairing the walls with the
+resources available.  Hopefully it'll be ready for the
+next attack...
+NEXT
+Setting up palisades is no easy task, but with the
+supplies that you have, your people seemed to have 
+managed alright!
+
+FAILURE TEXT
+N/A
+NEXT
+N/A
+NEXT
+N/A
+
+INIT R AND C
+
+END EVENT
+CONSTRUCTION
+
+DESCRIPTION
+
+OPTION TEXT
+
+CREATE EVENT
+
+SUCCESS TEXT
+
+FAILURE TEXT
+
+INIT R AND C
+
+SUCCESS RESULT
+
+FAILURE RESULT
+
+CONDITIONAL
+
+END EVENT
+CONSTRUCTION
+
+DESCRIPTION
+Your people have come this far safely and they have you to
+thank for that!  Perhaps it's time to take a breather and
+consider the progress on the sand castle.  Might you be
+able to spare the resources to expand it?  Keep in mind,
+the disasters of the beach will only get more dangerous
+while your castle remains incomplete...
+
+OPTION TEXT
+Build up the castle!
+NEXT
+Maybe next time...
+
+CREATE EVENT
+
+SUCCESS TEXT
+Piling a great deal of your resources into the project,
+you are able to make great progress on the castle!
+It is another 20% close to completion...
+NEXT
+Wisely, you decide that the construction of the castle
+must be placed after the direct needs of your people.
+Hopefully in the future you will have more to spare...
+
+FAILURE TEXT
+You clearly wish to build the grand sand castle, and no
+one can blame you for that!  However, your supplies of
+resources are sadly too low to permit it.  Perhaps
+you may have the reserves to build it up next time.
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+SEAWEED -40
+DRIFTWOODCHIPS -40
+SEASHELLS -40
+SAND -40
+PEBBLES -40
+
+CONDITIONAL
+POPULATION 40
+SEAWEED -40
+DRIFTWOODCHIPS -40
+SEASHELLS -40
+SAND -40
+PEBBLES -40
+
+END EVENT
+SAND CASTLE BUILDER

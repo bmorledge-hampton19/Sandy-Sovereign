@@ -2,6 +2,8 @@ package sandySovereign;
 
 import java.util.*;
 
+import sandySovereign.Stockpile.Resource;
+
 /**
  * A class to determine whether a requirement for an event has been fulfilled.
  * @author Benjamin Morledge-Hampton
@@ -35,8 +37,12 @@ public class Conditional {
 		Conditional clonedConditional = new Conditional(s);
 		
 		// Copy over the requirements using the scale factor to scale them.
-		for (Stockpile.Resource r : required.keySet())
+		// (Happiness, Sand Dollars, and Clam Shells don't scale.)
+		for (Stockpile.Resource r : required.keySet()) {
 			clonedConditional.required.put(r, (int)(required.get(r)*scaleFactor));
+			if (r == Resource.HAPPINESS || r == Resource.SANDDOLLARS || r == Resource.CLAMSHELLS)
+				clonedConditional.required.put(r, required.get(r));
+		}
 		
 		// Return the cloned and scaled Conditional.
 		return clonedConditional;
@@ -71,7 +77,6 @@ public class Conditional {
 				
 			}			
 		}
-		
 		// If no requirements were failed, the check succeeds!
 		return true;
 		

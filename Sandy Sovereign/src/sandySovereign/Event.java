@@ -101,7 +101,7 @@ public class Event {
 	 */
 	public void addFailure(int optionNumber, Stockpile.Resource r, int value) {
 		// Add to the indicated result's failure occurrences.
-		results[optionNumber].addToSuccess(r, value);
+		results[optionNumber].addToFailure(r, value);
 	}
 	
 	/**

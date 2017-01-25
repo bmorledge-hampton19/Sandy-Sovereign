@@ -1,6 +1,9 @@
 package sandySovereign;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Random;
 
 import sandySovereign.Stockpile.Resource;
@@ -39,6 +42,29 @@ public class EventManager {
 	
 	}
 	
+	/*
+	DESCRIPTION
+	
+	OPTION TEXT
+	
+	CREATE EVENT
+	
+	SUCCESS TEXT
+	
+	FAILURE TEXT
+	
+	INIT R AND C
+	
+	SUCCESS RESULT
+	
+	FAILURE RESULT
+	
+	CONDITIONAL
+	
+	END EVENT
+	RANDOM EVENT
+	 */
+	
 	/**
 	 * Load in the details for the events.
 	 * @param fileName specifies the name of the text file to load in from.
@@ -46,11 +72,246 @@ public class EventManager {
 	private void loadEvents(String fileName, Stockpile s) {
 		
 		// TODO Parse text to load in events.
-		randomEvents.add(new Event("This is a test Event.\nTesting\nTesting", new String[] {"One","Two","Three"}));
-		randomEvents.get(0).initializeResultsAndConditionals(s, new String[] {"Uno","Dos","Tres"}, new String[]{"","",""});
-		randomEvents.get(0).addSuccess(0, Resource.SEASHELLS, 10);
-		randomEvents.get(0).addSuccess(1, Resource.SEAWEED, 10);
-		randomEvents.get(0).addSuccess(2, Resource.PEBBLES, 10);
+		// Load in the text file.
+		try (FileInputStream is = new FileInputStream(new File(fileName))) {
+			
+			// Get to the buffered reader.
+			InputStreamReader ir = new InputStreamReader(is);
+			BufferedReader rdr = new BufferedReader(ir);
+			
+			// Keeps track of the line number for errors.
+			int lineNumber = 0;
+			
+			// Read in lines until EOF
+			String line;
+			while ((line = rdr.readLine()) != null) {
+				
+				lineNumber++;
+				
+				// Remove excess whitespace.
+				while (line != null && line.length() == 0) {
+					line = rdr.readLine();
+					lineNumber++;
+				}
+				
+				// Make sure the end of the file hasn't been reached.
+				if (line == null) break;
+				
+				// The event being created.
+				Event event = null;
+				
+				// Values for the events.  These will be assigned for each event as the text file is parsed.
+				String eventDescription = "";
+				ArrayList<String> optionText = new ArrayList<String>();
+				ArrayList<String> successText = new ArrayList<String>();
+				ArrayList<String> failureText = new ArrayList<String>();
+				
+				// Read until the end of the event is specified, creating the event as you go.
+				while (line != null && !line.contains("END EVENT")) {
+					
+					// Use headers to determine what data is being read.
+					if (line.contains("DESCRIPTION")) {
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber++;
+							eventDescription += (line + "\n");
+						}
+					
+						lineNumber++;
+						
+					}
+					
+					else if (line.contains("OPTION TEXT")) {
+						
+						// Keeps track of which option is having text added to it.
+						int option = 0;
+						// The string being built for the current option.
+						String text = "";
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber++;
+							
+							// This signals the start of text for the next option.
+							if (line.contains("NEXT")) {
+								optionText.add(text);
+								option++;
+								text = "";
+							}
+							else text += (line + "\n");
+							
+							
+						}
+						
+						optionText.add(text);
+						
+						lineNumber++;
+					
+					}
+					
+					else if (line.contains("SUCCESS TEXT")) {
+						
+						// Keeps track of which option is having text added to it.
+						int option = 0;
+						// The string being built for the current option.
+						String text = "";
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber++;
+							
+							// This signals the start of text for the next option.
+							if (line.contains("NEXT")) {
+								successText.add(text);
+								option++;
+								text = "";
+							}
+							else text += (line + "\n");
+							
+							
+						}
+						
+						successText.add(text);
+						
+						lineNumber++;
+						
+					}
+					
+					else if (line.contains("FAILURE TEXT")) {
+						
+						// Keeps track of which option is having text added to it.
+						int option = 0;
+						// The string being built for the current option.
+						String text = "";
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber++;
+							
+							// This signals the start of text for the next option.
+							if (line.contains("NEXT")) {
+								failureText.add(text);
+								option++;
+								text = "";
+							}
+							else text += (line + "\n");
+							
+							
+						}
+						
+						failureText.add(text);
+						
+						lineNumber++;
+						
+					}
+					
+					else if (line.contains("SUCCESS RESULT")) {
+						
+						// Keeps track of which option is having the result added to it.
+						int option = 0;
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber ++;
+							
+							// Start adding to the next option.
+							if (line.contains("NEXT")) {
+								option++;
+							}
+							// Read in a result.
+							else {
+								String[] result = line.split(" ");
+								event.addSuccess(option, Resource.valueOf(result[0]), Integer.parseInt(result[1]));
+							}
+							
+							
+						}
+					
+						lineNumber++;
+						
+					}
+					
+					else if (line.contains("FAILURE RESULT")) {
+						
+						// Keeps track of which option is having the result added to it.
+						int option = 0;
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber ++;
+							
+							// Start adding to the next option.
+							if (line.contains("NEXT")) {
+								option++;
+							}
+							// Read in a result.
+							else {
+								String[] result = line.split(" ");
+								event.addFailure(option, Resource.valueOf(result[0]), Integer.parseInt(result[1]));
+							}
+							
+						}
+					
+						lineNumber++;
+						
+					}
+					
+					else if (line.contains("CONDITIONAL")) {
+						
+						// Keeps track of which option is having the conditional added to it.
+						int option = 0;
+						
+						while( (line = rdr.readLine()).length() > 0) {
+							lineNumber ++;
+							
+							// Start adding to the next option.
+							if (line.contains("NEXT")) {
+								option++;
+							}
+							// Read in a result.
+							else {
+								String[] result = line.split(" ");
+								event.addConditional(option, Resource.valueOf(result[0]), Integer.parseInt(result[1]));
+							}
+							
+						}
+					
+						lineNumber++;
+						
+					}
+					
+					else if (line.contains("CREATE")) {
+						event = new Event(eventDescription, (String[])optionText.toArray(new String[optionText.size()]));
+						rdr.readLine();
+						lineNumber++;
+					}
+					
+					else if (line.contains("INIT")) {
+						event.initializeResultsAndConditionals(s, (String[])successText.toArray(new String[optionText.size()]),
+							   (String[])failureText.toArray(new String[optionText.size()]));
+					    rdr.readLine();
+					    lineNumber++;
+					}
+					   
+					else System.out.printf("Error.  Cannot read line %d.\n", lineNumber);
+					
+					line = rdr.readLine();
+					lineNumber++;
+					
+				}
+				
+				// Now, read the next line to determine which event has been created.
+				line = rdr.readLine();
+				lineNumber++;
+				
+				// Put the event where it belongs.
+				if (line.contains("RANDOM EVENT")) randomEvents.add(event);
+				else if (line.contains("DISASTER")) disaster.add(event);
+				else if (line.contains("CONSTRUCTION")) construction = event;
+				else if (line.contains("SAND CASTLE BUILDER")) sandCastleBuilder = event;
+				else System.out.printf("Unkown header on line %d.\n", lineNumber);
+				
+			}
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		
 	}
 	
@@ -65,7 +326,7 @@ public class EventManager {
 		Random RNG = new Random();
 		
 		// Return a random event scaled based on the sand castle's level.
-		return randomEvents.get(RNG.nextInt(randomEvents.size())).Clone((double)(1 + sandCastleLevel*.25));
+		return randomEvents.get(RNG.nextInt(randomEvents.size())).Clone((double)(1 + sandCastleLevel*.375));
 		
 	}
 	
@@ -210,7 +471,7 @@ public class EventManager {
 	private Event prepareCrabAttack(Stockpile s, int turnNumber) {
 		
 		// Calculate the incoming strength of the angry crabs!
-		int disasterPower = (int)(60*(1+turnNumber*0.1));
+		int disasterPower = (int)(60*(1+turnNumber*0.01));
 		
 		// Calculate the potential overflow of the crabs attack if it breaches the walls even with the people's assistance.
 		// A negative value indicates no overflow.
@@ -261,7 +522,7 @@ public class EventManager {
 	private Event prepareCarelessBeachGoers(Stockpile s, int turnNumber) {
 		
 		// Calculate the incoming strength of the careless beach-goers.
-		int disasterPower = (int)(50*(1+turnNumber*0.1));
+		int disasterPower = (int)(50*(1+turnNumber*0.01));
 		
 		// Calculate the potential overflow from the beach-goers if the palisades fail even with the people's assistance.
 		// A negative value indicates no overflow.

@@ -1,0 +1,823 @@
+DESCRIPTION
+An interesting sand person approaches your walls.
+He is carrying a large sack filled with who knows what
+and seems intent on sharing some of it with you.
+Your people graciously let him into the city and bring him
+to you.  He asks you: "What have you need of?"
+Well...
+What have you need of?
+
+OPTION TEXT
+Seashells!
+NEXT
+Sand!
+NEXT
+Seaweed!
+
+CREATE EVENT
+
+FAILURE TEXT
+"Well, well, well!" The mysterious man says.
+"Wouldn't you know it, that's exactly what I've got
+here in my sack!"  
+He proceeds to empty his sack's contents at your feet
+and then run gleefully out of your city!
+NEXT
+"Well, well, well!" The mysterious man says.
+"Wouldn't you know it, that's exactly what I've got
+here in my sack!"  
+He proceeds to empty his sack's contents at your feet
+and then run gleefully out of your city!
+NEXT
+"Well, well, well!" The mysterious man says.
+"Wouldn't you know it, that's exactly what I've got
+here in my sack!"  
+He proceeds to empty his sack's contents at your feet
+and then run gleefully out of your city!
+
+SUCCESS TEXT
+"Really?" The mysterious man says, raising one eyebrow.
+"You seem to be pretty well off in that regard!"
+He shakes his head sadly and begins to walk away.
+Before your eyes, the sack he was holding begins to
+shrink into oblivion and the mysterious man walks
+out of the city and disappears...
+NEXT
+"Really?" The mysterious man says, raising one eyebrow.
+"You seem to be pretty well off in that regard!"
+He shakes his head sadly and begins to walk away.
+Before your eyes, the sack he was holding begins to
+shrink into oblivion and the mysterious man walks
+out of the city and disappears...
+NEXT
+"Really?" The mysterious man says, raising one eyebrow.
+"You seem to be pretty well off in that regard!"
+He shakes his head sadly and begins to walk away.
+Before your eyes, the sack he was holding begins to
+shrink into oblivion and the mysterious man walks
+out of the city and disappears...
+
+INIT R AND C
+
+FAILURE RESULT
+SEASHELLS 20
+NEXT
+SAND 20
+NEXT 
+SEAWEED 20
+
+CONDITIONAL
+SEASHELLS 50
+NEXT
+SAND 50
+NEXT
+SEAWEED 50
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+An interesting sand person approaches your walls.
+He is carrying a large sack filled with who knows what
+and seems intent on sharing some of it with you.
+Your people graciously let him into the city and bring him
+to you.  He asks you: "What have you need of?"
+Well...
+What have you need of?
+
+OPTION TEXT
+Pebbles!
+NEXT
+Driftwood!
+NEXT
+Food!
+
+CREATE EVENT
+
+FAILURE TEXT
+"Well, well, well!" The mysterious man says.
+"Wouldn't you know it, that's exactly what I've got
+here in my sack!"  
+He proceeds to empty his sack's contents at your feet
+and then run gleefully out of your city!
+NEXT
+"Well, well, well!" The mysterious man says.
+"Wouldn't you know it, that's exactly what I've got
+here in my sack!"  
+He proceeds to empty his sack's contents at your feet
+and then run gleefully out of your city!
+NEXT
+"Well, well, well!" The mysterious man says.
+"Wouldn't you know it, that's exactly what I've got
+here in my sack!"  
+He proceeds to empty his sack's contents at your feet
+and then run gleefully out of your city!
+
+SUCCESS TEXT
+"Really?" The mysterious man says, raising one eyebrow.
+"You seem to be pretty well off in that regard!"
+He shakes his head sadly and begins to walk away.
+Before your eyes, the sack he was holding begins to
+shrink into oblivion and the mysterious man walks
+out of the city and disappears...
+NEXT
+"Really?" The mysterious man says, raising one eyebrow.
+"You seem to be pretty well off in that regard!"
+He shakes his head sadly and begins to walk away.
+Before your eyes, the sack he was holding begins to
+shrink into oblivion and the mysterious man walks
+out of the city and disappears...
+NEXT
+"Really?" The mysterious man says, raising one eyebrow.
+"You seem to be pretty well off in that regard!"
+He shakes his head sadly and begins to walk away.
+Before your eyes, the sack he was holding begins to
+shrink into oblivion and the mysterious man walks
+out of the city and disappears...
+
+INIT R AND C
+
+FAILURE RESULT
+PEBBLES 20
+NEXT
+DRIFTWOODPIECES 20
+NEXT 
+FOOD 20
+
+CONDITIONAL
+PEBBLES 50
+NEXT
+DRIFTWOODPIECES 50
+NEXT
+FOOD 50
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Storms are raking the beach blowing seaweed and driftwood
+all over the place!  It certainly would be nice to be able
+to collect it while it's whizzing around, but to do so would
+certainly be dangerous... What to do... What to do...
+
+OPTION TEXT
+Risk it!
+NEXT
+Wait it out
+
+CREATE EVENT
+
+SUCCESS TEXT
+Well, Your people were certainly able to collect a good 
+amount of resources, but sadly, not too many of them
+made it back...  The few who did are not happy that
+you sent them out in such perilous conditions.
+NEXT
+You wait the storm out and scout around for resources the
+next morning.  You find some, but the pickings aren't
+as great as they could have been during the storm.
+
+FAILURE TEXT
+N/A
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+SEAWEED 23
+DRIFTWOODCHIPS 18
+POPULATION -15
+HAPPINESS -20
+NEXT
+SEAWEED 9
+DRIFTWOODCHIPS 12
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Your gatherers have returned from the field with two 
+large, plump berries in tow, one red and the other blue.
+They both look delicious, but your gatherers seem 
+suspicious that one of them may be hazardous to eat...
+Which one do you tell the gatherers it is safe to eat?
+
+OPTION TEXT
+Red of course!
+NEXT
+Blue, duh!
+
+CREATE EVENT
+
+SUCCESS TEXT
+You reassure the gatherers that the red berry is just fine.
+However, after a feast that night, it would appear that you
+chose in error!  Food poisoning runs ramapant throughout
+the city and for a few civilians it proves to be fatal...
+NEXT
+You reassure the gatherers that the red berry is just fine.
+After a feast that night, it would appear that you made
+the right call!  Everyone goes to bed fit to burst and
+there is even some left to store for later!
+
+FAILURE TEXT
+N/A
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+POPULATION -10
+HAPPINESS -10
+NEXT
+FOOD 20
+HAPPINESS 10
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Your gatherers have returned from the field with two 
+large, plump berries in tow, one red and the other blue.
+They both look delicious, but your gatherers seem 
+suspicious that one of them may be hazardous to eat...
+Which one do you tell the gatherers it is safe to eat?
+
+OPTION TEXT
+Red of course!
+NEXT
+Blue, duh!
+
+CREATE EVENT
+
+SUCCESS TEXT
+You reassure the gatherers that the red berry is just fine.
+After a feast that night, it would appear that you made
+the right call!  Everyone goes to bed fit to burst and
+there is even some left to store for later!
+NEXT
+You reassure the gatherers that the red berry is just fine.
+However, after a feast that night, it would appear that you
+chose in error!  Food poisoning runs ramapant throughout
+the city and for a few civilians it proves to be fatal...
+
+FAILURE TEXT
+N/A
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+FOOD 20
+HAPPINESS 10
+NEXT
+POPULATION -15
+HAPPINESS -10
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Avast! The great white clam, Doby Mick, has surfaced on
+the beach!  Quickly!  We must rally everyone if we are
+to catch this creature now!  The danger may be great, but
+the rewards will surely be worth it!
+
+OPTION TEXT
+Go for it!
+NEXT
+Let the clam go.
+
+CREATE EVENT
+
+SUCCESS TEXT
+Hooray!  Though it took the whole of your city chasing
+down Doby Mick, and it took down a sizeable portion of
+your hunting party, the beast was eventually felled.
+Tonight, we feast like kings!  You've even taken the
+shell of the beast as a prize!
+NEXT
+Though the clam's gleaming shell is indeed tantalizing,
+you decide it's simply not worth the lives of your people.
+Perhaps another day...
+
+FAILURE TEXT
+Try as you might, even the full strength of your population
+is not enough to claim your prize.  The clam leaves merely
+scathed and the casualties you've taken are great...
+When the beast returns next time, you'd better be ready!
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+POPULATION -30
+HAPPINESS 10
+FOOD 1000
+CLAMSHELLS 1
+
+FAILURE RESULT
+POPULATION -20
+HAPPINESS -15
+
+CONDITIONAL
+POPULATION 60
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+A traveling merchant has appeared in your kingdom with a
+very interesting item. A full sand dollar!  Amazing!
+He says he will only trade it for something equally
+dazzling, but what could you possibly have that would
+rival the sand dollar in its splendor!?
+
+OPTION TEXT
+How about this?
+
+CREATE EVENT
+
+SUCCESS TEXT
+You bring out your prized white clam shell and are
+pleased to see the merchant's jaw drop as you bring it
+into view.  He seems more than happy to make the trade
+and you are suddenly a very wealthy sand king!
+
+FAILURE TEXT
+You try your hardest to impress the merchant with various
+baubles and trinkets, but nothing really seems to tickle his
+fancy...  Eventually you give up and are resigned to the
+fact that the sand dollar is probably destined for someone
+else...
+
+INIT R AND C
+
+SUCCESS RESULT
+SANDDOLLARS 1
+CLAMSHELLS -1
+
+CONDITIONAL
+CLAMSHELLS 1
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+You are surveying your kingdom when suddenly you notice
+a small man-child walking along the beach holding a bucket
+filled with all kinds of useful resources!  You quickly
+muster up some people to grab her attention and are
+successful!  You know you'll need something impressive to
+convince her to give you her beach finds, but what...
+
+OPTION TEXT
+How about this!?
+
+CREATE EVENT
+
+SUCCESS TEXT
+You offer up the precious sand dollar and the girl's face
+lights up in joy!  She instantly empties the bucket by your
+city and runs off with the sand dollar.  What a wealth of
+resources!! You've hit the jackpot!
+
+FAILURE TEXT
+You try your best to get the girl to trade with you, but
+no matter what you present to her, she still clutches
+her bucket firmly.  Eventually you give up and let her
+continue skipping down the beach, bucket in hand...
+
+INIT R AND C
+
+SUCCESS RESULT
+SANDDOLLARS -1
+SEAWEED 1000
+SEASHELLS 1000
+SAND 1000
+PEBBLES 1000
+DRIFTWOODCHIPS 1000
+
+CONDITIONAL
+SANDDOLLARS 1
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Your people have discovered a nearly empty bag of junk food
+stuck in a nearby bush.  Presumably, it was left by some
+careless beach-goer.  The smarties in your city devise a
+plan to dislodge it using a makeshift catapult made from
+driftwood and seaweed and using pebbles as ammunition.
+The bag certainly has some delicious crumbs in it... Is
+it worth the resources to build the catapult?
+
+OPTION TEXT
+Build it
+NEXT
+Not worth it
+
+CREATE EVENT
+
+SUCCESS TEXT
+Construction of the catapult is no mean feat, but your
+people manage it regardless.  Once finished, pebbles flung
+at the bag knock it loose in no time.  Success!  The bag
+flutters down and its delicious contents are yours!
+NEXT
+The food may be delicious, but it's simply not worth the
+resources to you. You leave it to the seagulls and continue
+on your merry way.
+
+FAILURE TEXT
+Although you wish to build the catapult, your supplies are
+lacking.  The bag must be left alone and will most certainly
+be gone by the time you get around to collecting the
+necessary resources.  Ah well...
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+SEAWEED -10
+PEBBLES -10
+DRIFTWOODPIECES -10
+FOOD 20
+
+CONDITIONAL
+SEAWEED 10
+PEBBLES 10
+DRIFTWOODPIECES 10
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Your royal engineer has come to you with a proposition.
+He believes that a new building method could repurpose
+some materials from the wall while still maintaining its
+strength.  However, you'll have to choose what material
+is to be recycled.
+
+OPTION TEXT
+Pebbles
+NEXT
+Seashells
+NEXT
+Sand
+
+CREATE EVENT
+
+SUCCESS TEXT
+You tell your engineer to repurpose the pebbles, you'll
+need them most of all.  He quickly gets to work, and
+before you know it, your stockpiles are a little bit fuller.
+NEXT
+You tell your engineer to repurpose the seashells, you'll
+need them most of all.  He quickly gets to work, and
+before you know it, your stockpiles are a little bit fuller.
+NEXT
+You tell your engineer to repurpose the sand, you'll
+need them most of all.  He quickly gets to work, and
+before you know it, your stockpiles are a little bit fuller.
+
+FAILURE TEXT
+N/A
+NEXT
+N/A
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+PEBBLES 10
+NEXT
+SEASHELLS 10
+NEXT
+SAND 10
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Your people come to you with an intriguing proposition.
+They propose that you throw a feast both to raise the
+morale of your people and the attract the attention
+of nearby sand people who may be willing to settle
+down in a place such as this.
+
+OPTION TEXT
+A feast it shall be!
+NEXT
+No feast for you
+
+CREATE EVENT
+
+SUCCESS TEXT
+You heartily agree that a feast would be marvelous and
+begin preparations immediately!  Before long, the
+celebration is going in full force!  People are filled
+with merriment and by the end, although your foodstuffs are
+lower, you find that there are some new faces in your
+kingdom.
+NEXT
+For whatever reason, you decide that a feast is not in
+your best interests.  It's simply not worth the waste
+of food.  The people who suggested the idea leave
+disgruntled.  It seems they really wanted their feast...
+
+FAILURE TEXT
+Although you wish dearly to be able to throw a grand
+feast, your foodstuffs say otherwise.  Food is tight
+enough as it is.  A feast at this point would be 
+impossible to achieve...
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+FOOD -30
+HAPPINESS 25
+POPULATION 15
+NEXT
+HAPPINESS -10
+
+FAILURE RESULT
+HAPPINESS -10
+
+CONDITIONAL
+
+END EVENT
+RANDOM EVENT
+
+
+
+DESCRIPTION
+Your beautiful kingdom may have been high and dry for 
+some time now, but high tide is fast approaching...
+Quickly now!  Do you want to send out your people
+to help bail out the moat as the tide encroaches,
+or would they be better off staying inside and
+leaving the moat to fend for itself...
+
+OPTION TEXT
+Have the people assist in
+bailing out the moat.
+NEXT
+Have the people remain 
+inside the city walls.
+
+CREATE EVENT
+
+SUCCESS TEXT
+Your hardworking people have succeeded in keeping the
+moat from overflowing!  Some were washed out to sea,
+and the rest aren't happy about it, but your walls
+are certainly glad to be high and dry!
+NEXT
+Even without the help of your people, the moat did
+its duty in protecting your walls and people.
+On the downside, the moat will certainly need
+attention before the next tide rolls along...
+
+FAILURE TEXT
+Despite their hard work, your people were unsuccessful
+in keeping the tide from breaching your moat...
+The ocean waves proceeded to wreack havoc on your 
+walls and city, and many people were washed out to sea...
+Needless to say, morale has plummeted.
+NEXT
+The moat did its best, but it wasn't enough to prevent
+the tide from reaching your walls and dealing immense
+damage to your infrastructure.  Your people aren't happy
+with the outcome, but at least they were relatively safe
+in their homes.
+
+INIT R AND C
+
+END EVENT
+DISASTER
+
+
+
+DESCRIPTION
+What's that!  On the horizon!  Oh no...
+It's an angry (and hungry) herd of vicious crabs!!!!!!
+To them, your people are no more than a delicious snack!
+Your walls are all that stand between your people and
+disaster!  Quickly!  Do you send your people out to 
+attempt to reinforce the walls against the attack or
+leave them in the safety of their homes and hope against
+hope that the walls do not fail...
+
+OPTION TEXT
+Send out the people to
+reinforce the walls.
+NEXT
+Keep them hunkered down
+within the walls.
+
+CREATE EVENT
+
+SUCCESS TEXT
+Your people work valiantly to brace the walls against attack
+and are successful at holding up against the crabby onslaught!
+Unfortunately, some of the people gave their lives for the
+others' safety, and they are being mourned...
+NEXT
+Inside their homes, your people wait with baited breath,
+hoping the walls will hold... 
+Thankfully, they do!  The crabs lose heart eventually and
+decide to look elsewhere for a meal.
+
+FAILURE TEXT
+Your people work valiantly to brace the walls against attack,
+but the crabs' assault proves too vicious and the walls
+are breached regardless!  The casualties are heavy, and
+the survivors are distraught... Hopefully things will
+be different next time...
+NEXT
+Inside their homes, your people wait with baited breath,
+hoping the walls will hold... 
+In a sudden turn of events, the crabs breach the wall
+and set their sights on your people!  This can't be good...
+
+INIT R AND C
+
+END EVENT
+DISASTER
+
+
+
+DESCRIPTION
+Ah! The sun is shining and the wind has calmed.  What perfect
+weather... For careless beach-goers! Ack!!  Tourists and
+locals alike have begun to storm the warm and sunny beach
+with complete disregard for your people!  A sharp poke from
+your palisades will surely make your presence known, but
+will that be enough?  Perhaps your people could help too...
+
+OPTION TEXT
+Have your people make
+their presence known.
+NEXT
+Have your people take
+shelter inside.
+
+CREATE EVENT
+
+SUCCESS TEXT
+Screaming and shouting at the top of their lungs, your
+courageous sand people help to alert people to their 
+presence and the palisades do the rest!  A few unlucky
+souls will not be out to shout again, and this saddens
+those remaining, but things could have been much worse!
+NEXT
+Taking shelter inside, you leave the leg work up to your
+palisades.  Fortunately, the sharp sticks seem to do the
+trick all by themselves and your people remain safe inside
+their homes.  Hooray!
+
+FAILURE TEXT
+Although your people try their best to get the attention
+of the beach-goers, they are unsuccessful in keeping the
+palisades up, and people and walls alike are soon trampled
+underfoot...  So sad... :(
+NEXT
+Hoping that the palisades will be enough, your people
+take shelter in their homes.  Sadly, the beach-goers are
+too many and too careless for your pointy sticks.  Before
+too long, the palisades have failed and your walls and
+people pay the price...
+
+INIT R AND C
+
+END EVENT
+DISASTER
+
+
+
+DESCRIPTION
+Today seems like a relatively peaceful day.  What to do?
+Ah!  Perhaps it's best to work on shoring up defenses.
+You never can be too careful, and who knows how close
+the next disaster is... What would you like to build up?
+Keep in mind, the walls require seashells, sand, and 
+pebbles, the palisades require driftwood and seaweed,
+and the moat simply requires manpower (although such 
+dull work certainly doesn't help morale...)
+
+OPTION TEXT
+Bail out the moat.
+NEXT
+Build up the walls.
+NEXT
+Put up palisades.
+
+CREATE EVENT
+
+SUCCESS TEXT
+After a few hours of toiling away, your moat has been
+dried out by your determined population!
+NEXT
+Your people get to work on repairing the walls with the
+resources available.  Hopefully it'll be ready for the
+next attack...
+NEXT
+Setting up palisades is no easy task, but with the
+supplies that you have, your people seemed to have 
+managed alright!
+
+FAILURE TEXT
+N/A
+NEXT
+N/A
+NEXT
+N/A
+
+INIT R AND C
+
+END EVENT
+CONSTRUCTION
+
+
+
+DESCRIPTION
+Your people have come this far safely and they have you to
+thank for that!  Perhaps it's time to take a breather and
+consider the progress on the sand castle.  Might you be
+able to spare the resources to expand it?  Keep in mind,
+the disasters of the beach will only get more dangerous
+while your castle remains incomplete...
+
+OPTION TEXT
+Build up the castle!
+NEXT
+Maybe next time...
+
+CREATE EVENT
+
+SUCCESS TEXT
+Piling a great deal of your resources into the project,
+you are able to make great progress on the castle!
+It is another 20% close to completion...
+NEXT
+Wisely, you decide that the construction of the castle
+must be placed after the direct needs of your people.
+Hopefully in the future you will have more to spare...
+
+FAILURE TEXT
+You clearly wish to build the grand sand castle, and no
+one can blame you for that!  However, your supplies of
+resources are sadly too low to permit it.  Perhaps
+you may have the reserves to build it up next time.
+NEXT
+N/A
+
+INIT R AND C
+
+SUCCESS RESULT
+SEAWEED -40
+DRIFTWOODCHIPS -40
+SEASHELLS -40
+SAND -40
+PEBBLES -40
+
+CONDITIONAL
+POPULATION 40
+SEAWEED 40
+DRIFTWOODCHIPS 40
+SEASHELLS 40
+SAND 40
+PEBBLES 40
+
+END EVENT
+SAND CASTLE BUILDER

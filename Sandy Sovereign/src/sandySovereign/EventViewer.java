@@ -87,18 +87,18 @@ public class EventViewer extends Menu implements ActionListener{
 					moveButton(buttons.get(3), 350, 400);
 					
 					// Place its text beneath it.
-					displayText(g, 300, 475, currentEvent.getOptionText(0), 20);
+					displayText(g, 350, 475, currentEvent.getOptionText(0), 20);
 					
 				}
 				else if (currentEvent.getNumberOfOptions() == 2) {
 					
 					// Re-align the buttons.
-					moveButton(buttons.get(3), 225, 400);
-					moveButton(buttons.get(4), 475, 400);
+					moveButton(buttons.get(3), 165, 400);
+					moveButton(buttons.get(4), 440, 400);
 					
 					// Place their text beneath them..
-					displayText(g, 175, 475, currentEvent.getOptionText(0), 20);
-					displayText(g, 375, 475, currentEvent.getOptionText(1), 20);
+					displayText(g, 165, 475, currentEvent.getOptionText(0), 20);
+					displayText(g, 440, 475, currentEvent.getOptionText(1), 20);
 					
 				} else {
 					
@@ -108,9 +108,9 @@ public class EventViewer extends Menu implements ActionListener{
 					moveButton(buttons.get(5), 600, 400);
 					
 					// Place their text beneath them..
-					displayText(g, 50, 475, currentEvent.getOptionText(0), 20);
-					displayText(g, 300, 475, currentEvent.getOptionText(1), 20);
-					displayText(g, 550, 475, currentEvent.getOptionText(2), 20);
+					displayText(g, 100, 475, currentEvent.getOptionText(0), 20);
+					displayText(g, 350, 475, currentEvent.getOptionText(1), 20);
+					displayText(g, 600, 475, currentEvent.getOptionText(2), 20);
 					
 				}
 				

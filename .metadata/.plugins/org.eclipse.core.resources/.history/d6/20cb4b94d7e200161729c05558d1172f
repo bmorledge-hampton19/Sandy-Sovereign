@@ -1,0 +1,203 @@
+package sandySovereign;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * The menu used to view the events that drive the game.  Also serves as a hub for the builder and statistics menus.
+ * @author Benjamin Morledge-Hampton
+ * @version 1.0 1/23/2017
+ */
+public class EventViewer extends Menu implements ActionListener{
+	
+	// The event whose parameters are being displayed.
+	Event currentEvent;
+	
+	// The description of the result of an event.
+	String resultText;
+	String incomeInfo;
+	
+	// Keeps track of whether or not a choice has been given for the event.
+	boolean chosen;
+
+	/**
+	 * Initialize the menu with default buttons and a null event.
+	 * @param scaleFactor specifies the factor by which to scale the UI.
+	 * @param manager specifies the manager that the menu will refer back to.
+	 */
+	public EventViewer(double scaleFactor, Manager manager) {
+		super(scaleFactor, manager);
+		
+		addButton(50, 700, "Statistics");
+		addButton(700, 700, "Builder");
+		addButton(350, 250, "Advance");
+		addButton(150, 400, "Option 1");
+		addButton(350, 400, "Option 2");
+		addButton(550, 400, "Option 3");
+		addButton(375, 600, "Ok");
+		for (int i = 3; i < 7; i++) buttons.get(i).setVisible(false);
+		currentEvent = null;
+		
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		
+		// Display the title text.
+		displayText(g, 300, 50, "Event Viewer", 40);
+		
+		// Display the current turn.
+		displayText(g, 600, 50, String.format("Turn: %d", manager.getCurrentTurn()), 20);
+		
+		// Determine what text to display based on the state of the event.
+		if (currentEvent == null) {
+			
+			// Bring back the advance button.
+			buttons.get(2).setVisible(true);
+			
+			// Re-activate the builder button.
+			buttons.get(1).setEnabled(true);
+			
+			// Tell the player about this turn's income. (If not the first turn.)
+			if (manager.getCurrentTurn() > 1) {
+				displayText(g, 250, 330, "Turn income has been received.", 20);
+				displayText(g, 250, 350, incomeInfo, 20);
+			}
+			
+			// Wait here for the user to advance.
+			displayText(g, 200, 200, "Building Phase. Press the button below to advance.", 20);
+		
+		}
+		else {
+			
+			if (!chosen) {
+				
+				// Display the description of the event.
+				displayText(g, 100, 100, currentEvent.getDescription(), 25);
+				
+				// Set the option buttons to visible as necessary.
+				for (int i = 0; i < currentEvent.getNumberOfOptions(); i++)
+					buttons.get(3+i).setVisible(true);
+				
+				// Display the options depending on how many there are.
+				if (currentEvent.getNumberOfOptions() == 1) {
+					
+					// Re-align the button.
+					moveButton(buttons.get(3), 350, 400);
+					
+					// Place its text beneath it.
+					displayText(g, 350, 400, currentEvent.getOptionText(0), 20);
+					
+				}
+				else if (currentEvent.getNumberOfOptions() == 2) {
+					
+					// Re-align the buttons.
+					moveButton(buttons.get(3), 225, 400);
+					moveButton(buttons.get(4), 475, 400);
+					
+					// Place their text beneath them..
+					displayText(g, 225, 475, currentEvent.getOptionText(0), 20);
+					displayText(g, 475, 475, currentEvent.getOptionText(1), 20);
+					
+				} else {
+					
+					// Re-align the buttons.
+					moveButton(buttons.get(3), 100, 400);
+					moveButton(buttons.get(4), 350, 400);
+					moveButton(buttons.get(5), 600, 400);
+					
+					// Place their text beneath them..
+					displayText(g, 100, 475, currentEvent.getOptionText(0), 20);
+					displayText(g, 350, 475, currentEvent.getOptionText(1), 20);
+					displayText(g, 600, 475, currentEvent.getOptionText(2), 20);
+					
+				}
+				
+				
+			}
+			else {
+				
+				// Display the result text.
+				displayText(g, 200, 100, resultText, 20);
+			
+				// Bring back the confirmation button.
+				buttons.get(6).setVisible(true);
+				
+			}
+			
+		}
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		// The first two buttons switch to the statistics view and builder.
+		if (e.getSource() == buttons.get(0)) manager.switchMenus(Manager.STATISTICS_VIEWER);
+		else if (e.getSource() == buttons.get(1)) manager.switchMenus(Manager.BUILDER);
+		
+		// This button advances to the next event.
+		else if (e.getSource() == buttons.get(2)) {
+			
+			// Get the new event.
+			currentEvent = manager.getNextEvent();
+			
+			// Hide the advance button.
+			buttons.get(2).setVisible(false);
+
+			// Disable the builder button.
+			buttons.get(1).setEnabled(false);
+			
+			// Repaint
+			repaint();
+			
+		}
+		
+		// This button confirms the results of the event.
+		else if (e.getSource() == buttons.get(6)) {
+		
+			// Conclude the event.
+			currentEvent = manager.concludeEvent();
+			
+			// Set chosen to false.
+			chosen = false;
+			
+			// Hide the confirmation button.
+			buttons.get(6).setVisible(false);
+			
+			// If the sandCastleBuilderEvent was not activated, get the turn's income.
+			incomeInfo = manager.getStockpile().applyIncome();
+			
+			// Repaint.
+			repaint();
+			
+		}
+		
+		else {
+			// These buttons activate the results of events.
+			for (int i = 3; i < 6; i++) {
+				
+				// Check each button.
+				if (e.getSource() == buttons.get(i)) {
+					
+					// Set the result string by activating the result of the event.
+					resultText = currentEvent.activateResult(i-3);
+					
+					// Set chosen to true.
+					chosen = true;
+					
+					// Hide the option buttons.
+					for (int z = 3; z < 6; z++) buttons.get(z).setVisible(false);
+					
+					// Repaint
+					repaint();
+					
+				}
+			
+			}
+		}
+		
+	}
+
+}

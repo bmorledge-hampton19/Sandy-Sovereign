@@ -1,0 +1,66 @@
+DESCRIPTION
+Your beautiful kingdom may have been high and dry for 
+some time now, but high tide is fast approaching...
+Quickly now!  Do you want to send out your people
+to help bail out the moat as the tide encroaches,
+or would they be better off staying inside and
+leaving the moat to fend for itself...
+
+OPTION TEXT
+Have the people assist in
+bailing out the moat.
+NEXT
+Have the people remain 
+inside the city walls.
+
+CREATE EVENT
+
+SUCCESS TEXT
+Your hardworking people have succeeded in keeping the
+moat from overflowing!  Some were washed out to sea,
+and the rest aren't happy about it, but your walls
+are certainly glad to be high and dry!
+NEXT
+Even without the help of your people, the moat did
+its duty in protecting your walls and people.
+On the downside, the moat will certainly need
+attention before the next tide rolls along...
+
+FAILURE TEXT
+Despite their hard work, your people were unsuccessful
+in keeping the tide from breaching your moat...
+The ocean waves proceeded to wreack havoc on your 
+walls and city, and many people were washed out to sea...
+Needless to say, morale has plummeted.
+NEXT
+The moat did its best, but it wasn't enough to prevent
+the tide from reaching your walls and dealing immense
+damage to your infrastructure.  Your people aren't happy
+with the outcome, but at least they were relatively safe
+in their homes.
+
+INIT R AND C
+
+END EVENT
+DISASTER
+
+
+DESCRIPTION
+
+OPTION TEXT
+
+CREATE EVENT
+
+SUCCESS TEXT
+
+FAILURE TEXT
+
+INIT R AND C
+
+SUCCESS RESULT
+
+FAILURE RESULT
+
+CONDITIONAL
+
+END EVENT

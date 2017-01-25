@@ -207,7 +207,7 @@ public class Stockpile {
 	 * @return the people's effectiveness at repelling disasters.
 	 */
 	public int getPeopleEffectiveness() {
-		return (int)(resourceValuesMap.get(Resource.POPULATION)*.5 *
+		return (int)(resourceValuesMap.get(Resource.POPULATION) *
 				(double)resourceValuesMap.get(Resource.HAPPINESS)/100.0);
 	}
 	

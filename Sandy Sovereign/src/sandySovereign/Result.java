@@ -3,6 +3,8 @@ package sandySovereign;
 import java.util.EnumMap;
 import java.util.Map;
 
+import sandySovereign.Stockpile.Resource;
+
 /**
  * A class to handle a possible result from an event.
  * @author Benjamin Morledge-Hampton
@@ -51,15 +53,21 @@ public class Result {
 		// Create a new Result object to clone to.
 		Result clonedResult = new Result(successMessage, failureMessage, s);
 		
-		// Copy over the success and failure values scaled up.
+		// Copy over the success and failure values scaled up. 
+		// (Happiness, Sand Dollars, and Clam Shells don't scale.)
 		for (Stockpile.Resource r : Stockpile.Resource.values()) {
 			
-			if (success.get(r) != null)
+			if (success.get(r) != null) {
 				clonedResult.success.put(r, (int)(success.get(r)*scaleFactor));
+				if (r == Resource.HAPPINESS || r == Resource.SANDDOLLARS || r == Resource.CLAMSHELLS)
+					clonedResult.success.put(r, success.get(r));
+			}
 			
-			if (failure.get(r) != null)
+			if (failure.get(r) != null) {
 				clonedResult.failure.put(r, (int)(failure.get(r)*scaleFactor));
-			
+				if (r == Resource.HAPPINESS || r == Resource.SANDDOLLARS || r == Resource.CLAMSHELLS)
+					clonedResult.failure.put(r, failure.get(r));
+			}
 		}
 		
 		// Return the cloned object.
@@ -148,7 +156,7 @@ public class Result {
 		else {
 			
 			// If the resource was capped at the max value, let the user know.
-			if (s.getResourceValue(r) == s.getResourceMax(r))
+			if (r != Resource.LEVEL && s.getResourceValue(r) == s.getResourceMax(r))
 				return String.format("%s increased to maximum!\n", r.toString());
 			
 			// Otherwise, tell the user by how much it was increased.
