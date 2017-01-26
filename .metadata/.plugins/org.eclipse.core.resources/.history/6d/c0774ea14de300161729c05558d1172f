@@ -163,7 +163,7 @@ public class Stockpile {
 		}
 		// If there's enough food to go around, people are pretty happy!
 		else {
-			incomeInfo += "Your people are happy to be well fed!\nHappiness increased by 5%\n";
+			incomeInfo += "Your people are happy to be well fed!\nHappiness increased by 10%\n";
 			alterResourceValue(Resource.HAPPINESS, 5);
 		}
 			

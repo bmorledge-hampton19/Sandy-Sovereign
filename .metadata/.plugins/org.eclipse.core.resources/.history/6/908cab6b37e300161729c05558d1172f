@@ -87,11 +87,11 @@ public class StatisticsViewer extends Menu implements ActionListener{
 		// Display info on special resources.
 		i = 0;
 		if (s.getResourceValue(Resource.SANDDOLLARS) > 0) {
-			displayText(g, 10, 550 + i*50, String.format("Sand Dollars: %d", s.getResourceValue(Resource.SANDDOLLARS)), 15);
+			displayText(g, 100, 550 + i*50, String.format("Sand Dollars: %d", s.getResourceValue(Resource.SANDDOLLARS)), 15);
 			i++;
 		}
 		if (s.getResourceValue(Resource.CLAMSHELLS) > 0) 
-			displayText(g, 10, 550 + i*50, String.format("Clam Shells: %d", s.getResourceValue(Resource.CLAMSHELLS)), 15);
+			displayText(g, 100, 550 + i*50, String.format("Clam Shells: %d", s.getResourceValue(Resource.CLAMSHELLS)), 15);
 	
 		// Display info on the sand castle.
 		displayText(g, 310, 500, String.format("%d%s", s.getSandCastleLevel()*20, "%"), 50);

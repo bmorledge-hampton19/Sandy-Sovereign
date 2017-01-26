@@ -163,7 +163,7 @@ public class Stockpile {
 		}
 		// If there's enough food to go around, people are pretty happy!
 		else {
-			incomeInfo += "Your people are happy to be well fed!\nHappiness increased by 5%\n";
+			incomeInfo += "Your people are happy to be well fed!\nHappiness increased by 10%\n";
 			alterResourceValue(Resource.HAPPINESS, 5);
 		}
 			
@@ -171,10 +171,9 @@ public class Stockpile {
 		if (resourceValuesMap.get(Resource.HAPPINESS) < 31) {
 			incomeInfo += "Your people are not happy at all with your rule...\n";
 			incomeInfo += "As a result no new people have entered your kingdom,\n";
-			incomeInfo += "and some unhappy citizens are leaving...\n";
+			incomeInfo += "and some unhappy citizens are leaving...\n"
 			incomeInfo += String.format("%d people have left your kingdom.", getTenPercentPopulation());
 			alterResourceValue(Resource.POPULATION, -getTenPercentPopulation());
-			alterResourceValue(Resource.POPULATION, -resourceIncomeMap.get(Resource.POPULATION));
 		}
 			
 		// Return the informational string.

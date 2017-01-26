@@ -91,7 +91,7 @@ public class Building {
 		buildings[3].addToCost(Resource.DRIFTWOODCHIPS, 20);
 		buildings[3].addToCost(Resource.SEAWEED, 20);
 		buildings[3].addToCost(Resource.FOOD, 10);
-		buildings[3].addToIncomeUpgrades(Resource.POPULATION, 5);
+		buildings[3].addToIncomeUpgrades(Resource.POPULATION, 2);
 		
 		// Tier 2 buildings (1st Max upgrades.)
 		buildings[4] = new Building("Storage house",

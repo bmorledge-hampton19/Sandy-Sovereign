@@ -71,6 +71,7 @@ public class EventManager {
 	 */
 	private void loadEvents(String fileName, Stockpile s) {
 		
+		// TODO Parse text to load in events.
 		// Load in the text file.
 		try (FileInputStream is = new FileInputStream(new File(fileName))) {
 			
