@@ -493,7 +493,7 @@ Sand
 CREATE EVENT
 
 SUCCESS TEXT
-You tell your engineer to repurpose the pebbles, you'll
+You tell your engineer to repurpose the pebbles. You'll
 need them most of all.  He quickly gets to work, and
 before you know it, your stockpiles are a little bit fuller.
 NEXT
