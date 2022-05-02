@@ -69,14 +69,15 @@ public abstract class Menu extends JComponent implements ActionListener{
 		
 		// The new button to be added to the array list.
 		JButton newButton = new JButton(text);
-		
+
 		// Set the buttons bounds based on the given x and y values.
 		newButton.setBounds((int)(x*scaleFactor), (int)(y*scaleFactor), 
-				(int)(newButton.getPreferredSize().width*scaleFactor), (int)(newButton.getPreferredSize().height*scaleFactor));
+				(int)(newButton.getPreferredSize().width),
+                (int)(newButton.getPreferredSize().height));
 		
-		// Scale the text on the button.
+        // Scale the text on the button.
 		newButton.setFont(new Font("TimesRoman", Font.BOLD, (int)(12*scaleFactor)));
-		
+
 		// Add the button to the Menu.
 		add(newButton);
 		newButton.addActionListener(this);
@@ -94,7 +95,7 @@ public abstract class Menu extends JComponent implements ActionListener{
 	 */
 	public void moveButton(JButton button, int x, int y) {
 		button.setBounds((int)(x*scaleFactor), (int)(y*scaleFactor), 
-				(int)(button.getPreferredSize().width*scaleFactor), (int)(button.getPreferredSize().height*scaleFactor));
+				(int)(button.getPreferredSize().width), (int)(button.getPreferredSize().height));
 	}
 
 	

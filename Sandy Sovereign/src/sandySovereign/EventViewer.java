@@ -30,7 +30,7 @@ public class EventViewer extends Menu implements ActionListener{
 		super(scaleFactor, manager);
 		
 		addButton(50, 700, "Statistics");
-		addButton(700, 700, "Builder");
+		addButton(650, 700, "Builder");
 		addButton(350, 250, "Advance");
 		addButton(150, 400, "Option 1");
 		addButton(350, 400, "Option 2");
